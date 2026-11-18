@@ -9,7 +9,7 @@ Key facts:
 - Rules checked: 17, grouped by the moment a reviewer meets them
 - Grids: index, columns, case
 - Licence: MIT, free to use
-- Author: Owi (Adri Garcia), https://theartofvisual.com
+- Author: Owi (Adri Garcia), https://theartofvisual.com, @owisixseven on X (https://x.com/owisixseven)
 - For: designers, art directors, design leads, illustrators, motion and 3D artists, photographers, design engineers
 
 ## Read

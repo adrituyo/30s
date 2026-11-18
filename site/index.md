@@ -89,4 +89,4 @@ Use it when you have the work and no site to show it, when the audit says the pr
 
 ## Credits
 
-Made by Owi (https://theartofvisual.com), Head of Design at Tuyo. Several rules build on Karl's (https://x.com/_kejk) writing on portfolios.
+Made by Owi (https://theartofvisual.com, @owisixseven on X: https://x.com/owisixseven), Head of Design at Tuyo. Several rules build on Karl's (https://x.com/_kejk) writing on portfolios.
