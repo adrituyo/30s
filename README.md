@@ -51,3 +51,7 @@ site/                         the page that presents the skills
 ## Credit
 
 Several rules build on Karl's ([@_kejk](https://x.com/_kejk)) writing on portfolios.
+
+## License
+
+MIT. See `LICENSE`.
