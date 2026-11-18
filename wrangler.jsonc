@@ -1,0 +1,14 @@
+{
+  // Cloudflare Workers: the page in site/ served as it is, with no server code
+  "name": "portfolio-skills",
+  "compatibility_date": "2026-01-01",
+  "workers_dev": true,
+  "assets": {
+    "directory": "./site"
+  },
+  // Own domains: Cloudflare creates the DNS records and the certificate
+  "routes": [
+    { "pattern": "30s.design", "custom_domain": true },
+    { "pattern": "www.30s.design", "custom_domain": true }
+  ]
+}

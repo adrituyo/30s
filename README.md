@@ -1,5 +1,7 @@
 # Portfolio skills
 
+**[30s.design](https://30s.design)**: the page that presents these skills and the 30-second theory behind them.
+
 Agent skills for designers' portfolios. The first pass over a portfolio lasts well under a minute; these
 skills make yours easy to take in and easy to understand in that time.
 
