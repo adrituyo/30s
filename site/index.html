@@ -68,7 +68,7 @@ code.slot { font: 14px var(--mono); color: var(--mut); }
 /* ── Page ── */
 main { margin-left: var(--side); border-left: 1px solid var(--line); min-height: 100vh; padding: 60px 0 0; }
 .wrap { max-width: 984px; margin: 0 auto; padding: 0 32px; }
-.hero { position: relative; padding: 96px 0 80px; }
+.hero { position: relative; padding: 96px 0 72px; }
 .hero .wrap { position: relative; }
 .hero h1 { font-size: 52px; line-height: 54px; font-weight: 550; letter-spacing: -.04em; max-width: 12ch; margin-top: 14px; text-wrap: balance; }
 .hero .sub { margin-top: 20px; font-size: 18px; color: var(--mut); max-width: 50ch; text-wrap: pretty; }
@@ -124,29 +124,55 @@ main { margin-left: var(--side); border-left: 1px solid var(--line); min-height:
 .detail { padding: 72px 0; border-top: 1px solid var(--line); }
 .detail .kicker { display: block; margin-bottom: 10px; }
 .detail h2 { font-size: 32px; line-height: 1.15; font-weight: 575; letter-spacing: -.03em; }
-.two > * { min-width: 0; }
-.two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; margin-top: 32px; }
-.box { border-radius: 16px; background: var(--card); box-shadow: 0 0 0 1px var(--ring); padding: 20px; }
-.box h3 { font-size: 15px; font-weight: 575; margin-bottom: 10px; }
-.box li, .box p { font-size: 14px; color: var(--mut); }
-.box li { display: grid; grid-template-columns: 22px 1fr; padding: 7px 0; border-top: 1px solid var(--line); }
-.box li:first-child { border-top: 0; }
-.box li i { font-size: 13px; line-height: 1.6; font-style: normal; color: var(--dim); font-variant-numeric: tabular-nums; }
-.say { font: 13px/1.7 var(--mono); color: var(--mut); background: var(--code); border-radius: 10px; padding: 14px 16px; box-shadow: 0 0 0 1px var(--ring); overflow-x: auto; white-space: pre; }
-.say b { color: var(--fg); font-weight: 400; } .say em { color: var(--acc); font-style: normal; } .say s { color: var(--dim); text-decoration: none; }
-/* The rules: the moment on the left, then one row per rule: number, the rule, what it means */
-.rules { margin-top: 40px; }
-.rules section { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 0 32px; padding: 20px 0 28px; border-top: 1px solid var(--track); }
-.rules header { padding-top: 12px; }
-.rules h3 { font-size: 16px; font-weight: 575; letter-spacing: -.01em; }
-.rules header span { display: block; margin-top: 2px; font-size: 14px; color: var(--dim); font-variant-numeric: tabular-nums; }
-.rules li { display: grid; grid-template-columns: 36px minmax(0, 1fr) minmax(0, 1fr); gap: 0 20px; align-items: baseline; padding: 12px 0; border-top: 1px solid var(--line); }
-.rules li:first-child { border-top: 0; }
-.rules li i { font-size: 14px; font-style: normal; color: var(--dim); font-variant-numeric: tabular-nums; }
-.rules li b { font-size: 16px; font-weight: 550; letter-spacing: -.01em; text-wrap: balance; }
-.rules li span { font-size: 15px; color: var(--mut); text-wrap: pretty; }
-.grids { margin-top: 32px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
-.grids .cardk p + p { padding-top: 0; color: var(--dim); }
+/* The theory: the thesis in large type, then the 30 seconds played out */
+.theory { padding: 72px 0 80px; border-top: 1px solid var(--line); }
+.theory .kicker { display: block; margin-bottom: 12px; }
+.theory h2 { font-size: 40px; line-height: 1.08; font-weight: 550; letter-spacing: -.035em; max-width: 19ch; text-wrap: balance; }
+.theory .lede { margin-top: 18px; font-size: 18px; max-width: 58ch; }
+
+/* A skill, as a use: when to reach for it, what you say, what it does, what comes back */
+.when { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 32px; margin-top: 32px; }
+.when li { padding: 14px 0 0; border-top: 1px solid var(--track); font-size: 16px; line-height: 1.4; letter-spacing: -.005em; text-wrap: pretty; }
+.when span, .lab { display: block; margin-bottom: 8px; font-size: 13px; color: var(--dim); }
+.flow { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 32px; margin-top: 48px; align-items: start; }
+.ask { padding: 16px 20px; border-radius: 20px 20px 20px 6px; background: var(--active); font-size: 18px; line-height: 1.38; letter-spacing: -.015em; text-wrap: pretty; }
+.ask + .lab { margin-top: 32px; }
+.does li, .fixes li { display: grid; grid-template-columns: 28px minmax(0, 1fr); padding: 10px 0; border-top: 1px solid var(--line); font-size: 15px; color: var(--mut); }
+.does i, .fixes i { font-size: 13px; line-height: 1.75; font-style: normal; color: var(--dim); font-variant-numeric: tabular-nums; }
+.get { padding: 24px; border-radius: 20px; background: var(--card); box-shadow: 0 0 0 1px var(--ring); }
+.verdict { font-size: 20px; line-height: 1.3; font-weight: 500; letter-spacing: -.02em; text-wrap: pretty; }
+.score { display: flex; gap: 3px; margin-top: 24px; }
+.score i { flex: 1; height: 8px; border-radius: 2px; background: var(--track); }
+.score .p { background: var(--acc); } .score .w { background: color-mix(in srgb, var(--fg) 46%, transparent); }
+.get .shot { margin-top: 20px; }
+.legend { margin: 10px 0 18px; font-size: 13px; color: var(--dim); font-variant-numeric: tabular-nums; }
+.legend b { font-weight: 400; color: var(--fg); }
+.fixes li { color: var(--fg); }
+.more { padding-top: 14px; border-top: 1px solid var(--line); font-size: 14px; color: var(--dim); text-wrap: pretty; }
+.note { margin-top: 36px; }
+
+/* The rules: one block per moment, with the question the reviewer is asking, and a card per rule */
+.rgroup { margin-top: 44px; }
+.rgroup header { display: flex; align-items: baseline; gap: 10px; padding-bottom: 14px; }
+.rgroup h3 { font-size: 18px; font-weight: 575; letter-spacing: -.02em; }
+.rgroup header span { font-size: 14px; color: var(--dim); font-variant-numeric: tabular-nums; }
+.rgroup header p { margin-left: auto; font-size: 15px; color: var(--mut); }
+.rgroup ol { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.rgroup li { display: flex; flex-direction: column; min-height: 172px; padding: 16px 20px 20px; border-radius: 16px; background: var(--card); box-shadow: 0 0 0 1px var(--ring); }
+.rgroup li i { font-size: 22px; font-style: normal; letter-spacing: -.02em; color: var(--dim); font-variant-numeric: tabular-nums; }
+.rgroup li b { margin-top: auto; padding-top: 20px; font-size: 17px; line-height: 1.25; font-weight: 550; letter-spacing: -.015em; text-wrap: balance; }
+.rgroup li span { margin-top: 6px; font-size: 14px; line-height: 1.45; color: var(--mut); text-wrap: pretty; }
+
+/* The grids: a real first screen of each, large, with what it is for */
+.shot { border-radius: 12px; overflow: hidden; background: #0c0c0c; box-shadow: 0 0 0 1px var(--ring); }
+.shot img { display: block; width: 100%; height: auto; }
+.gridrow { display: grid; grid-template-columns: minmax(0, 13fr) minmax(0, 7fr); gap: 36px; align-items: center; padding: 36px 0; border-top: 1px solid var(--line); scroll-margin-top: 60px; }
+.gridrow:first-of-type { margin-top: 36px; }
+.gridrow h3 { font-size: 26px; line-height: 1.15; font-weight: 575; letter-spacing: -.03em; }
+.gridrow p { margin-top: 8px; color: var(--mut); text-wrap: pretty; }
+.gridrow dl { margin: 22px 0 0; }
+.gridrow dt { padding-top: 12px; border-top: 1px solid var(--line); font-size: 13px; color: var(--dim); }
+.gridrow dd { margin: 2px 0 12px; font-size: 15px; text-wrap: pretty; }
 .foot { padding: 40px 0 56px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; font-size: 14px; color: var(--dim); }
 .foot a { color: var(--mut); border-bottom: 1px solid var(--line); }
 .foot a:hover { color: var(--fg); }
@@ -154,6 +180,8 @@ main { margin-left: var(--side); border-left: 1px solid var(--line); min-height:
 @media (max-width: 1100px) {
   .phase { grid-template-columns: 1fr; gap: 20px; }
   .phase .txt p { max-width: 56ch; }
+  .rgroup ol { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .gridrow { grid-template-columns: 1fr; gap: 20px; }
 }
 @media (max-width: 860px) {
   .menu { display: grid; }
@@ -173,16 +201,20 @@ main { margin-left: var(--side); border-left: 1px solid var(--line); min-height:
   .tl-ph li { padding-right: 0; }
   .tl-ph i { margin: 0 0 10px; }
   .stats span { display: block; max-width: 11ch; }
-  .rules section { grid-template-columns: 1fr; padding: 16px 0 12px; }
-  .rules header { padding: 0 0 4px; }
-  .rules li { grid-template-columns: 32px minmax(0, 1fr); gap: 0 8px; }
-  .rules li span { grid-column: 2; margin-top: 2px; }
   .cmd { width: 100%; }
-  .two, .rules, .grids { grid-template-columns: 1fr; }
+  .when, .flow { grid-template-columns: 1fr; }
+  .when { gap: 16px; }
+  .flow { margin-top: 36px; gap: 28px; }
+  .theory { padding: 48px 0 56px; }
+  .theory h2 { font-size: 30px; }
+  .rgroup header { flex-wrap: wrap; }
+  .rgroup header p { flex-basis: 100%; margin: 0; }
+  .rgroup li { min-height: 0; }
+  .get { padding: 20px; }
   .detail { padding: 56px 0; }
   .detail h2 { font-size: 28px; }
 }
-@media (max-width: 520px) { .cards { grid-template-columns: 1fr; } .well { aspect-ratio: 16 / 8; } }
+@media (max-width: 520px) { .cards, .rgroup ol { grid-template-columns: 1fr; } .well { aspect-ratio: 16 / 8; } }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation: none !important; transition: none !important; } }
 </style>
 </head>
@@ -201,6 +233,7 @@ main { margin-left: var(--side); border-left: 1px solid var(--line); min-height:
 <nav class="side" aria-label="Sections">
   <p>Get started</p>
   <a href="#top" class="on">Overview</a>
+  <a href="#theory">The 30-second theory</a>
   <p>Find out where you stand</p>
   <a href="#audit">Portfolio Audit</a>
   <a href="#rules">The 17 rules</a>
@@ -224,12 +257,20 @@ main { margin-left: var(--side); border-left: 1px solid var(--line); min-height:
         <div><b>17</b><span class="mono">Rules checked</span></div>
         <div><b>3</b><span class="mono">Grids to build with</span></div>
       </div>
+    </div>
+  </section>
+
+  <section class="theory" id="theory">
+    <div class="wrap">
+      <span class="mono kicker">The 30-second theory</span>
+      <h2>Nobody spends more than 30 seconds on a portfolio the first time.</h2>
+      <p class="lede">Whoever is hiring has forty tabs open. The first look decides which ones get a real read, and it goes the same way every time: five seconds on the first screen, ten scanning, fifteen on one project. Both skills are built around those three moments.</p>
       <div class="tl" id="tl" role="img" aria-label="The first 30 seconds of a visit: 0 to 5 seconds on the first screen, 5 to 15 scanning, 15 to 30 on one project, then they leave or they write.">
         <div class="tl-top"><span>The first look, in real time</span><span><b id="tl-t">0:00</b> / 0:30<button type="button" id="tl-re">Replay</button></span></div>
         <ol class="tl-ph">
-          <li data-from="0" data-to="5"><i></i><span>0–5 s</span><b>First screen</b><p>Who, what, at what level.</p></li>
-          <li data-from="5" data-to="15"><i></i><span>5–15 s</span><b>The scan</b><p>Real work, the best of it first.</p></li>
-          <li data-from="15" data-to="30"><i></i><span>15–30 s</span><b>One project</b><p>Your part, one decision you made, and what changed because of it.</p></li>
+          <li data-from="0" data-to="5"><i></i><span>0–5 s</span><b>First screen</b><p>Who is this, and at what level?</p></li>
+          <li data-from="5" data-to="15"><i></i><span>5–15 s</span><b>The scan</b><p>Is the work real, and is the best of it first?</p></li>
+          <li data-from="15" data-to="30"><i></i><span>15–30 s</span><b>One project</b><p>What was their part, what did they decide, and what changed because of it?</p></li>
         </ol>
         <p class="tl-end">Then they leave, or they write to you.</p>
       </div>
@@ -271,33 +312,37 @@ main { margin-left: var(--side); border-left: 1px solid var(--line); min-height:
     <div class="wrap">
       <span class="mono kicker">/portfolio-audit</span>
       <h2>Portfolio Audit</h2>
-      <p class="lede">Give it a link and say what you are aiming for. It walks the page like a reviewer with forty tabs open: five seconds on the first screen, ten scanning, fifteen on one project. Then it tells you what got through.</p>
-      <div class="two">
+      <p class="lede">Find out what a stranger takes from your portfolio in 30 seconds, and what to fix first, before the person hiring finds out for you.</p>
+      <ul class="when">
+        <li><span>Use it when</span>You are about to apply and want to see it with fresh eyes.</li>
+        <li><span>Or when</span>You keep sending it and nobody writes back.</li>
+        <li><span>Or when</span>You just redesigned it and can no longer tell if it works.</li>
+      </ul>
+      <div class="flow">
         <div>
-          <pre class="say"><s>&gt;</s> <b>audit my portfolio https://yourname.com,</b>
-  <b>I'm applying for senior product roles</b>
-
-<em>Verdict</em>  Passes on the first screen, loses it
-         on the scroll: the headline says lead,
-         the work says art director.
-<em>Score</em>    9 of 17 pass · 4 weak · 4 fail
-
-<em>Fix 1</em>    Put the work you led first
-<em>Fix 2</em>    One line per project: role, year, for whom
-<em>Fix 3</em>    Move the proof from About to the top</pre>
+          <span class="lab">You say</span>
+          <p class="ask">Audit my portfolio: yourname.com. I'm applying for senior product roles.</p>
+          <span class="lab">It does</span>
+          <ol class="does">
+            <li><i>1</i><span>Looks at your first screen, on desktop and on a phone.</span></li>
+            <li><i>2</i><span>Walks the page the way a reviewer does: first screen, scan, one project.</span></li>
+            <li><i>3</i><span>Marks the 17 rules against what it actually saw.</span></li>
+          </ol>
         </div>
-        <div class="box">
-          <h3>What you get back</h3>
-          <ul>
-            <li><i>1</i><span>What a stranger understands in 30 seconds: who, what, at what level, for whom, your part, how to reach you.</span></li>
-            <li><i>2</i><span>The three fixes that matter most, with the copy rewritten for you.</span></li>
-            <li><i>3</i><span>All 17 rules marked pass, weak or fail, with the evidence from your page.</span></li>
-            <li><i>4</i><span>What already works, so you do not lose it in the next redesign.</span></li>
-            <li><i>5</i><span>What it could not check, and how to check it yourself.</span></li>
-          </ul>
+        <div class="get">
+          <span class="lab">You get</span>
+          <p class="verdict">Passes on the first screen, loses it on the scroll: the headline says lead, the work says art director.</p>
+          <div class="score" aria-hidden="true"><i class="p"></i><i class="p"></i><i class="p"></i><i class="p"></i><i class="p"></i><i class="p"></i><i class="p"></i><i class="p"></i><i class="p"></i><i class="w"></i><i class="w"></i><i class="w"></i><i class="w"></i><i></i><i></i><i></i><i></i></div>
+          <p class="legend"><b>9</b> of 17 pass · <b>4</b> weak · <b>4</b> fail</p>
+          <ol class="fixes">
+            <li><i>1</i><span>Put the work you led first.</span></li>
+            <li><i>2</i><span>One line per project: role, year, for whom.</span></li>
+            <li><i>3</i><span>Move the proof from About to the top.</span></li>
+          </ol>
+          <p class="more">Each fix comes with the copy rewritten. Then what already works, what it could not check, and all 17 rules with the evidence from your page.</p>
         </div>
       </div>
-      <p class="lede" style="margin-top:28px">It never invents a fact about you. When a better headline needs a number it does not have, it leaves a slot: <code class="slot">[N] years</code>, <code class="slot">[team size]</code>.</p>
+      <p class="lede note">It never invents a fact about you. When a better headline needs a number it does not have, it leaves a slot: <code class="slot">[N] years</code>, <code class="slot">[team size]</code>.</p>
     </div>
   </section>
 
@@ -305,36 +350,34 @@ main { margin-left: var(--side); border-left: 1px solid var(--line); min-height:
     <div class="wrap">
       <span class="mono kicker">What the audit checks</span>
       <h2>The 17 rules</h2>
-      <p class="lede">Grouped by the moment a reviewer meets them. None of them is about taste: a plain portfolio can pass all seventeen and a beautiful one can fail half.</p>
-      <div class="rules">
-        <section><header><h3>First screen</h3><span>0–5 s</span></header><ol>
-          <li><i>01</i><b>Say what you do, in one sentence</b><span>A line that could not sit on anyone else's site.</span></li>
-          <li><i>02</i><b>Show work on the first screen</b><span>The claim needs evidence before the first scroll.</span></li>
-          <li><i>03</i><b>Signal level and proof</b><span>Years, names, numbers. Specific and checkable.</span></li>
-        </ol></section>
-        <section><header><h3>The scan</h3><span>5–15 s</span></header><ol>
-          <li><i>04</i><b>Strongest, most relevant work first</b><span>Most visitors see one project. Choose which.</span></li>
-          <li><i>05</i><b>Few projects, each one edited</b><span>You are judged by the weakest piece you show.</span></li>
-          <li><i>06</i><b>Readable at a glance</b><span>Title and one line, always visible. No hover.</span></li>
-        </ol></section>
-        <section><header><h3>One project</h3><span>15–30 s</span></header><ol>
-          <li><i>07</i><b>Say what your part was</b><span>Role, team, and client or personal concept.</span></li>
-          <li><i>08</i><b>Show one decision</b><span>What you chose and why, not the process you followed.</span></li>
-          <li><i>09</i><b>Show the change</b><span>Before and after, a result, or what shipped.</span></li>
-        </ol></section>
-        <section><header><h3>The exit</h3><span>After 30 s</span></header><ol>
-          <li><i>10</i><b>One clear ask, one way to reach you</b><span>A visible email and a reason to write.</span></li>
-          <li><i>11</i><b>Aimed at something</b><span>After 30 seconds, hired for what?</span></li>
-        </ol></section>
-        <section><header><h3>Everything around it</h3><span>At any moment</span></header><ol>
-          <li><i>12</i><b>Works on a phone</b><span>Links are opened from chats and feeds.</span></li>
-          <li><i>13</i><b>Loads fast</b><span>A slow first screen spends the 30 seconds on nothing.</span></li>
-          <li><i>14</i><b>Shares well</b><span>The preview card is seen before the page.</span></li>
-          <li><i>15</i><b>Readable by machines</b><span>Recruiters search, and ask AI assistants for names.</span></li>
-          <li><i>16</i><b>No friction</b><span>No passwords, loaders, dead links or cursor tricks.</span></li>
-          <li><i>17</i><b>Always within reach</b><span>Your name and your email stay on screen at every scroll.</span></li>
-        </ol></section>
-      </div>
+      <p class="lede">Grouped by the moment a reviewer meets them, each under the question they are asking at that point. None is about taste: a plain portfolio can pass all seventeen and a beautiful one can fail half.</p>
+      <section class="rgroup"><header><h3>First screen</h3><span>0–5 s</span><p>Who is this, and at what level?</p></header><ol>
+        <li><i>01</i><b>Say what you do, in one sentence</b><span>A line that could not sit on anyone else's site.</span></li>
+        <li><i>02</i><b>Show work on the first screen</b><span>The claim needs evidence before the first scroll.</span></li>
+        <li><i>03</i><b>Signal level and proof</b><span>Years, names, numbers. Specific and checkable.</span></li>
+      </ol></section>
+      <section class="rgroup"><header><h3>The scan</h3><span>5–15 s</span><p>Is the work real, and is the best of it first?</p></header><ol>
+        <li><i>04</i><b>Strongest, most relevant work first</b><span>Most visitors see one project. Choose which.</span></li>
+        <li><i>05</i><b>Few projects, each one edited</b><span>You are judged by the weakest piece you show.</span></li>
+        <li><i>06</i><b>Readable at a glance</b><span>Title and one line, always visible. No hover.</span></li>
+      </ol></section>
+      <section class="rgroup"><header><h3>One project</h3><span>15–30 s</span><p>What did this person actually do?</p></header><ol>
+        <li><i>07</i><b>Say what your part was</b><span>Role, team, and client or personal concept.</span></li>
+        <li><i>08</i><b>Show one decision</b><span>What you chose and why, not the process you followed.</span></li>
+        <li><i>09</i><b>Show the change</b><span>Before and after, a result, or what shipped.</span></li>
+      </ol></section>
+      <section class="rgroup"><header><h3>The exit</h3><span>After 30 s</span><p>How do I reach them, and for what?</p></header><ol>
+        <li><i>10</i><b>One clear ask, one way to reach you</b><span>A visible email and a reason to write.</span></li>
+        <li><i>11</i><b>Aimed at something</b><span>After 30 seconds, hired for what?</span></li>
+      </ol></section>
+      <section class="rgroup"><header><h3>Everything around it</h3><span>At any moment</span><p>Does anything get in the way?</p></header><ol>
+        <li><i>12</i><b>Works on a phone</b><span>Links are opened from chats and feeds.</span></li>
+        <li><i>13</i><b>Loads fast</b><span>A slow first screen spends the 30 seconds on nothing.</span></li>
+        <li><i>14</i><b>Shares well</b><span>The preview card is seen before the page.</span></li>
+        <li><i>15</i><b>Readable by machines</b><span>Recruiters search, and ask AI assistants for names.</span></li>
+        <li><i>16</i><b>No friction</b><span>No passwords, loaders, dead links or cursor tricks.</span></li>
+        <li><i>17</i><b>Always within reach</b><span>Your name and your email stay on screen at every scroll.</span></li>
+      </ol></section>
     </div>
   </section>
 
@@ -342,30 +385,37 @@ main { margin-left: var(--side); border-left: 1px solid var(--line); min-height:
     <div class="wrap">
       <span class="mono kicker">/portfolio-build</span>
       <h2>Portfolio Build</h2>
-      <p class="lede">Hand it a folder of images and whatever you have written about yourself. It asks only for what it cannot find, writes one content file, and builds a static site with nothing to install. Change the file, build again.</p>
-      <div class="two">
-        <div class="box">
-          <h3>What it does</h3>
-          <ul>
-            <li><i>1</i><span>Works out what the portfolio is for: the role or client you want.</span></li>
+      <p class="lede">Turn a folder of work and a few facts about you into a finished portfolio that already passes the 30 seconds.</p>
+      <ul class="when">
+        <li><span>Use it when</span>You have the work and no site to show it.</li>
+        <li><span>Or when</span>The audit says the problem is the structure, not the copy.</li>
+        <li><span>Or when</span>You want to see your work in another grid without starting over.</li>
+      </ul>
+      <div class="flow">
+        <div>
+          <span class="lab">You say</span>
+          <p class="ask">Build my portfolio from this folder. I'm a product designer, aiming at senior fintech roles.</p>
+          <span class="lab">It does</span>
+          <ol class="does">
+            <li><i>1</i><span>Asks only for what it cannot find in what you gave it.</span></li>
             <li><i>2</i><span>Shows you the three grids, says which it would pick and why, and builds the one you choose.</span></li>
             <li><i>3</i><span>Writes the headline, proof and one line per project from your facts.</span></li>
             <li><i>4</i><span>Sets the look from your brand: typeface, colour, corners, spacing.</span></li>
-            <li><i>5</i><span>Builds, then lists what the audit would still flag.</span></li>
-          </ul>
+          </ol>
         </div>
-        <div>
-          <pre class="say"><s>$</s> <b>python3 build.py portfolio.json</b>
-
-Built "case" layout: 3 projects, 18 pictures
-
-<em>2 things the 30-second audit would flag:</em>
-  rule  9  "Admin dashboard" does not say
-           what changed or what shipped
-  rule 14  no "share_image" for link previews</pre>
+        <div class="get">
+          <span class="lab">You get</span>
+          <p class="verdict">A finished site in a folder. Nothing to install: change one content file and build again.</p>
+          <div class="shot"><img src="grids/case.jpg" width="1440" height="900" alt="The first screen of a portfolio built with the case grid: a large statement, then the first project." loading="lazy"></div>
+          <p class="legend"><b>Case grid</b> · 3 projects · 18 pictures</p>
+          <ol class="fixes">
+            <li><i>9</i><span>"Admin dashboard" does not say what changed or what shipped.</span></li>
+            <li><i>14</i><span>No share image for link previews.</span></li>
+          </ol>
+          <p class="more">It ends by listing, by rule number, what an audit would still flag, so you know what is left.</p>
         </div>
       </div>
-      <p class="lede" style="margin-top:28px">The grid decides where things go. The look is one small block you own, so two portfolios built this way read the same and look nothing alike.</p>
+      <p class="lede note">The grid decides where things go. The look is one small block you own, so two portfolios built this way read the same and look nothing alike.</p>
     </div>
   </section>
 
@@ -373,12 +423,31 @@ Built "case" layout: 3 projects, 18 pictures
     <div class="wrap">
       <span class="mono kicker">Three structures that pass the test</span>
       <h2>Pick a grid</h2>
-      <p class="lede">Each one answers the same question for a different kind of work: in 30 seconds, what does the reviewer need to see?</p>
-      <div class="grids">
-        <div class="cardk" id="grid-index"><span class="well"><svg viewBox="0 0 160 100" aria-hidden="true"><rect class="a" x="30" y="20" width="30" height="60" rx="4"/><circle class="b" cx="38" cy="29" r="3.5"/><rect class="b" x="35" y="37" width="19" height="3" rx="1.5"/><rect class="b" x="35" y="43" width="13" height="3" rx="1.5"/><rect class="b" x="64" y="20" width="32" height="28" rx="4"/><rect class="b" x="100" y="20" width="30" height="28" rx="4"/><rect class="b" x="64" y="52" width="66" height="28" rx="4"/></svg></span><h4>Index</h4><p>Your name, headline and email stay fixed on the left while the work scrolls large on the right.</p><p>Art direction, brand, 3D, illustration.</p></div>
-        <div class="cardk" id="grid-columns"><span class="well"><svg viewBox="0 0 160 100" aria-hidden="true"><rect class="b" x="30" y="20" width="38" height="4" rx="2"/><rect class="a" x="108" y="20" width="22" height="4" rx="2"/><rect class="b" x="30" y="31" width="48" height="23" rx="4"/><rect class="b" x="82" y="31" width="48" height="23" rx="4"/><rect class="b" x="30" y="58" width="48" height="23" rx="4"/><rect class="b" x="82" y="58" width="48" height="23" rx="4"/></svg></span><h4>Columns</h4><p>A short header, then every piece at one size, two across. It reads as a body of work.</p><p>Film, motion, photography.</p></div>
-        <div class="cardk" id="grid-case"><span class="well"><svg viewBox="0 0 160 100" aria-hidden="true"><rect class="b" x="40" y="18" width="62" height="5" rx="2.5"/><rect class="b" x="40" y="26" width="38" height="5" rx="2.5"/><rect class="b" x="40" y="39" width="80" height="29" rx="4"/><rect class="a" x="40" y="75" width="22" height="3" rx="1.5"/><rect class="a" x="70" y="75" width="50" height="3" rx="1.5"/><rect class="a" x="40" y="81" width="16" height="3" rx="1.5"/><rect class="a" x="70" y="81" width="38" height="3" rx="1.5"/></svg></span><h4>Case</h4><p>A large statement, one card per project with its result, and a page each for role, decision and outcome.</p><p>Product, UX, design leadership.</p></div>
-      </div>
+      <p class="lede">The same example portfolio, built three ways. Each one answers the same question for a different kind of work: in 30 seconds, what does the reviewer need to see?</p>
+      <article class="gridrow" id="grid-index">
+        <div class="shot"><img src="grids/index.jpg" width="1440" height="900" alt="The index grid: a profile card fixed on the left, the first project large on the right." loading="lazy"></div>
+        <div>
+          <h3>Index</h3>
+          <p>Your name, headline and email stay fixed on the left while the work scrolls large on the right.</p>
+          <dl><dt>Best for</dt><dd>Art direction, brand, 3D, illustration.</dd><dt>Seen in the first 5 seconds</dt><dd>Who you are and your first piece, side by side.</dd></dl>
+        </div>
+      </article>
+      <article class="gridrow" id="grid-columns">
+        <div class="shot"><img src="grids/columns.jpg" width="1440" height="900" alt="The columns grid: a short header with the headline, then two pictures side by side." loading="lazy"></div>
+        <div>
+          <h3>Columns</h3>
+          <p>A short header, then every piece at one size, two across. It reads as a body of work.</p>
+          <dl><dt>Best for</dt><dd>Film, motion, photography.</dd><dt>Seen in the first 5 seconds</dt><dd>Your line, then two pieces at once.</dd></dl>
+        </div>
+      </article>
+      <article class="gridrow" id="grid-case">
+        <div class="shot"><img src="grids/case.jpg" width="1440" height="900" alt="The case grid: a large statement, then the first project card." loading="lazy"></div>
+        <div>
+          <h3>Case</h3>
+          <p>A large statement, one card per project with its result, and a page each for role, decision and outcome.</p>
+          <dl><dt>Best for</dt><dd>Product, UX, design leadership.</dd><dt>Seen in the first 5 seconds</dt><dd>Your statement at full size, then the first project.</dd></dl>
+        </div>
+      </article>
     </div>
   </section>
 
@@ -405,9 +474,10 @@ Built "case" layout: 3 projects, 18 pictures
   };
   const tick = () => { const t = (Date.now() - t0) / 1000; draw(t); if (t < 30) raf = requestAnimationFrame(tick); };
   const play = () => { cancelAnimationFrame(raf); t0 = Date.now(); tick(); };
-  if (matchMedia('(prefers-reduced-motion: reduce)').matches) draw(30); else play();
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) draw(30);
+  else { draw(0); const io = new IntersectionObserver(es => { if (es[0].isIntersecting) { io.disconnect(); play(); } }, { threshold: .5 }); io.observe(tl); }
   $('#tl-re').addEventListener('click', play);
-  document.addEventListener('visibilitychange', () => { if (!document.hidden && !tl.classList.contains('over')) { cancelAnimationFrame(raf); tick(); } });
+  document.addEventListener('visibilitychange', () => { if (t0 && !document.hidden && !tl.classList.contains('over')) { cancelAnimationFrame(raf); tick(); } });
 
   // Copy the install line
   $$('[data-copy]').forEach(b => b.addEventListener('click', async () => {
