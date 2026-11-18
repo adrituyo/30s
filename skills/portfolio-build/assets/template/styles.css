@@ -105,7 +105,7 @@ a.t { cursor: zoom-in; }
 .card { background: var(--card); border: 1px solid var(--edge); border-radius: var(--r); padding: 24px; }
 .l-index .who { display: flex; flex-direction: column; gap: 18px; }
 .l-index .who .say { display: flex; flex-direction: column; gap: 14px; }
-.l-index .contact { justify-content: space-between; margin-top: 6px; }
+.l-index .contact { margin-top: 6px; }   /* pills sit together from the left; spreading them left gaps once they wrapped */
 .card.nav { padding: 18px 24px 16px; }
 .index a { display: grid; grid-template-columns: 30px 1fr auto; align-items: baseline; padding: 4px 0; color: var(--mut); border-top: 1px solid var(--line); font-size: 14px; transition: color .2s, padding .3s var(--ease); }
 .index li:last-child a { border-bottom: 1px solid var(--line); }
