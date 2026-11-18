@@ -16,20 +16,20 @@
 <script>try { if (localStorage.getItem('theme') === 'light') document.documentElement.dataset.theme = 'light'; } catch (e) {}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400..600&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400..600&display=swap">
 <style>
 :root {
   --bg: #0b0b0b; --fg: #fff; --mut: #b5b3ad; --dim: #6f6d66; --line: rgba(255, 255, 255, .08);
-  --card: #141414; --card-h: #171717; --well-a: #1a1a17; --well-b: #0b0b0a; --active: #2a2a28; --code: #1a1a18;
+  --card: #141414; --card-h: #171717; --well: #1c1c1b; --track: rgba(255, 255, 255, .16); --active: #2a2a28; --code: #1a1a18;
   --acc: #00e6a0; --acc-ink: #00130c; --ring: rgba(255, 255, 255, .08);
   --sans: "Instrument Sans", ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
-  --mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;   /* commands only */
   --side: 260px; --ease: cubic-bezier(.23, 1, .32, 1);
   color-scheme: dark;
 }
 :root[data-theme="light"] {
   --bg: #f7f7f5; --fg: #111110; --mut: #55534e; --dim: #8a8880; --line: rgba(0, 0, 0, .09);
-  --card: #fff; --card-h: #fff; --well-a: #2a2a26; --well-b: #1b1b18; --active: #e9e8e4; --code: #eeede9;
+  --card: #fff; --card-h: #fff; --well: #f1f0ec; --track: rgba(0, 0, 0, .14); --active: #e9e8e4; --code: #eeede9;
   --acc: #008f63; --acc-ink: #fff; --ring: rgba(0, 0, 0, .08);
   color-scheme: light;
 }
@@ -41,11 +41,12 @@ ol, ul { list-style: none; }
 a { color: inherit; text-decoration: none; }
 button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
 :focus-visible { outline: 2px solid var(--acc); outline-offset: 2px; border-radius: 6px; }
-.mono { font-family: var(--mono); font-size: 12px; letter-spacing: .01em; color: var(--dim); }
+.mono { font-size: 13px; color: var(--dim); font-variant-numeric: tabular-nums; }
+code.slot { font: 14px var(--mono); color: var(--mut); }
 
 /* ── Top bar ── */
 .bar { position: fixed; inset: 0 0 auto 0; height: 60px; z-index: 10; display: flex; align-items: center; gap: 10px; padding: 0 20px 0 14px; background: color-mix(in srgb, var(--bg) 86%, transparent); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
-.logo { width: 32px; height: 32px; border-radius: 8px; display: grid; place-items: center; background: var(--fg); color: var(--bg); font: 600 12px/1 var(--mono); letter-spacing: -.04em; }
+.logo { width: 32px; height: 32px; border-radius: 8px; display: grid; place-items: center; background: var(--fg); color: var(--bg); font: 600 12px/1 var(--sans); letter-spacing: -.03em; }
 .bar .name { font-size: 14px; font-weight: 550; letter-spacing: -.01em; margin-left: 2px; }
 .bar .sp { flex: 1; }
 .ib { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; color: var(--mut); box-shadow: 0 0 0 1px var(--ring); transition: color .2s, background .2s; }
@@ -74,40 +75,30 @@ main { margin-left: var(--side); border-left: 1px solid var(--line); min-height:
 .cmd { margin-top: 28px; display: flex; align-items: center; gap: 12px; width: min(100%, 560px); height: 44px; padding: 0 6px 0 16px; border-radius: 10px; background: var(--code); box-shadow: 0 0 0 1px var(--ring); font: 13px var(--mono); }
 .cmd i { color: var(--dim); font-style: normal; }
 .cmd code { flex: 1; font: inherit; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.cmd button { height: 32px; padding: 0 10px; border-radius: 6px; font: 12px var(--mono); color: var(--dim); transition: color .15s, background .15s; }
+.cmd button { height: 32px; padding: 0 10px; border-radius: 6px; font: 13px var(--sans); color: var(--dim); transition: color .15s, background .15s; }
 .cmd button:hover { color: var(--fg); background: var(--active); }
 .stats { display: flex; gap: 44px; margin-top: 36px; }
 .stats b { display: block; font-size: 24px; font-weight: 575; letter-spacing: -.025em; line-height: 1.2; }
 
-/* The 30 seconds as a timeline that fills in real time */
-.tl { margin-top: 56px; padding: 8px; border-radius: 20px; background: var(--card); box-shadow: 0 0 0 1px var(--ring); --p: 0; }
-.tl-well { position: relative; padding: 18px 20px 26px; border-radius: 13px; background: radial-gradient(120% 140% at 50% 0%, var(--well-a), var(--well-b) 70%); box-shadow: inset 0 1px 8px rgba(0, 0, 0, .8); color: #fff; }
-.tl-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; font: 12px var(--mono); color: #8a8880; }
-.tl-top b { font-weight: 400; color: #fff; font-variant-numeric: tabular-nums; }
-.tl-top button { margin-left: 10px; height: 26px; padding: 0 8px; border-radius: 6px; font: 12px var(--mono); color: #8a8880; transition: color .15s, background .15s; }
-.tl-top button:hover { color: #fff; background: rgba(255, 255, 255, .08); }
-.tl-rail { position: relative; height: 34px; margin-top: 22px; }
-/* thirty ticks, one per second; the taller ones mark where a phase starts */
-.tl-rail::before { content: ""; position: absolute; inset: 10px 0; background: repeating-linear-gradient(to right, rgba(255, 255, 255, .22) 0 1px, transparent 1px calc(100% / 30)); border-right: 1px solid rgba(255, 255, 255, .22); }
-.tl-rail i { position: absolute; top: 0; bottom: 0; width: 1px; background: rgba(255, 255, 255, .45); }
-.tl-fill { position: absolute; left: 0; top: 14px; height: 6px; width: calc(var(--p) * 100%); border-radius: 6px; background: linear-gradient(to right, color-mix(in srgb, var(--acc) 25%, transparent), var(--acc)); box-shadow: 0 0 18px color-mix(in srgb, var(--acc) 60%, transparent); }
-.tl-head { position: absolute; top: 3px; left: calc(var(--p) * 100%); width: 2px; height: 28px; margin-left: -1px; border-radius: 2px; background: #fff; box-shadow: 0 0 12px var(--acc), 0 0 2px #fff; }
-.tl-ph { display: grid; grid-template-columns: 5fr 10fr 15fr; padding: 4px 12px 10px; }
-.tl-ph li { padding: 14px 12px 0 0; min-width: 0; color: var(--dim); transition: color .4s var(--ease); }
-.tl-ph li + li { padding-left: 12px; border-left: 1px solid var(--line); }
-.tl-ph span { display: block; font: 12px var(--mono); }
-.tl-ph b { display: block; margin-top: 6px; font-size: 15px; font-weight: 575; letter-spacing: -.01em; }
+/* The 30 seconds: three lines, as long as each moment lasts, that fill in real time */
+.tl { margin-top: 56px; }
+.tl-top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; font-size: 13px; color: var(--dim); font-variant-numeric: tabular-nums; }
+.tl-top b { font-weight: 400; color: var(--fg); }
+.tl-top button { margin-left: 12px; font-size: 13px; color: var(--dim); transition: color .15s; }
+.tl-top button:hover { color: var(--fg); }
+.tl-ph { display: grid; grid-template-columns: 5fr 10fr 15fr; gap: 6px; margin-top: 14px; }
+.tl-ph li { --q: 0; min-width: 0; padding-right: 12px; color: var(--dim); transition: color .4s var(--ease); }
+.tl-ph i { display: block; position: relative; height: 2px; margin: 0 -12px 14px 0; border-radius: 2px; overflow: hidden; background: var(--track); }
+.tl-ph i::after { content: ""; position: absolute; inset: 0; background: var(--fg); transform-origin: 0 50%; transform: scaleX(var(--q)); }
+.tl-ph span { display: block; font-size: 13px; font-variant-numeric: tabular-nums; }
+.tl-ph b { display: block; margin-top: 4px; font-size: 15px; font-weight: 575; letter-spacing: -.01em; }
 .tl-ph p { margin-top: 2px; font-size: 14px; line-height: 1.4; text-wrap: pretty; }
 .tl-ph li.done { color: var(--mut); }
-.tl-ph li.done span::after { content: " ✓"; color: var(--acc); }
 .tl-ph li.now { color: var(--fg); }
-.tl-ph li.now span { color: var(--acc); }
 .tl-ph li.now p { color: var(--mut); }
-.tl-end { display: flex; justify-content: space-between; gap: 12px; margin: 0 12px; padding: 12px 0 10px; border-top: 1px solid var(--line); font-size: 14px; color: var(--dim); transition: color .4s var(--ease); }
-.tl-end b { font-weight: 575; }
+.tl-end { margin-top: 22px; font-size: 15px; color: var(--dim); transition: color .4s var(--ease); }
 .tl.over .tl-end { color: var(--fg); }
-.tl.over .tl-end span { color: var(--acc); }
-.tl.over .tl-head { opacity: 0; transition: opacity .6s; }
+
 
 .sec { padding: 0 0 72px; }
 .sec > .wrap > h2 { font-size: 22px; line-height: 33px; font-weight: 575; letter-spacing: -.025em; }
@@ -122,8 +113,10 @@ main { margin-left: var(--side); border-left: 1px solid var(--line); min-height:
 .cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
 .cardk { display: flex; flex-direction: column; padding: 8px; border-radius: 20px; background: var(--card); box-shadow: 0 0 0 1px var(--ring); transition: background .2s var(--ease), box-shadow .2s var(--ease); }
 .cardk:hover { background: var(--card-h); box-shadow: 0 0 0 1px var(--ring), 0 8px 24px rgba(0, 0, 0, .12); }
-.well { aspect-ratio: 16 / 10; border-radius: 13px; display: grid; place-items: center; overflow: hidden; background: radial-gradient(120% 100% at 50% 0%, var(--well-a), var(--well-b) 70%); box-shadow: inset 0 1px 8px rgba(0, 0, 0, .8); color: var(--acc); }
-.well svg { width: 46%; height: auto; filter: drop-shadow(0 0 10px color-mix(in srgb, var(--acc) 55%, transparent)); }
+.well { aspect-ratio: 16 / 10; border-radius: 13px; display: block; overflow: hidden; background: var(--well); color: var(--fg); }
+.well svg { display: block; width: 100%; height: 100%; }
+.well .a { fill: currentColor; opacity: .1; } .well .b { fill: currentColor; opacity: .26; } .well .c { fill: var(--acc); }
+.well .o { fill: none; stroke: currentColor; stroke-width: 1.5; opacity: .3; } .well .l { fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; opacity: .4; }
 .cardk h4 { font-size: 15px; font-weight: 575; letter-spacing: -.01em; padding: 14px 8px 0; }
 .cardk p { font-size: 14px; line-height: 1.45; color: var(--mut); padding: 4px 8px 12px; text-wrap: pretty; }
 
@@ -138,15 +131,20 @@ main { margin-left: var(--side); border-left: 1px solid var(--line); min-height:
 .box li, .box p { font-size: 14px; color: var(--mut); }
 .box li { display: grid; grid-template-columns: 22px 1fr; padding: 7px 0; border-top: 1px solid var(--line); }
 .box li:first-child { border-top: 0; }
-.box li i { font: 12px/1.75 var(--mono); font-style: normal; color: var(--dim); }
+.box li i { font-size: 13px; line-height: 1.6; font-style: normal; color: var(--dim); font-variant-numeric: tabular-nums; }
 .say { font: 13px/1.7 var(--mono); color: var(--mut); background: var(--code); border-radius: 10px; padding: 14px 16px; box-shadow: 0 0 0 1px var(--ring); overflow-x: auto; white-space: pre; }
 .say b { color: var(--fg); font-weight: 400; } .say em { color: var(--acc); font-style: normal; } .say s { color: var(--dim); text-decoration: none; }
-.rules { margin-top: 32px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 32px; }
-.rules section { padding: 18px 0; border-top: 1px solid var(--line); }
-.rules h3 { font: 12px var(--mono); color: var(--dim); margin-bottom: 8px; }
-.rules li { display: grid; grid-template-columns: 30px 1fr; padding: 5px 0; font-size: 15px; }
-.rules li i { font: 12px/1.9 var(--mono); font-style: normal; color: var(--dim); }
-.rules li span { color: var(--mut); display: block; font-size: 14px; }
+/* The rules: the moment on the left, then one row per rule: number, the rule, what it means */
+.rules { margin-top: 40px; }
+.rules section { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 0 32px; padding: 20px 0 28px; border-top: 1px solid var(--track); }
+.rules header { padding-top: 12px; }
+.rules h3 { font-size: 16px; font-weight: 575; letter-spacing: -.01em; }
+.rules header span { display: block; margin-top: 2px; font-size: 14px; color: var(--dim); font-variant-numeric: tabular-nums; }
+.rules li { display: grid; grid-template-columns: 36px minmax(0, 1fr) minmax(0, 1fr); gap: 0 20px; align-items: baseline; padding: 12px 0; border-top: 1px solid var(--line); }
+.rules li:first-child { border-top: 0; }
+.rules li i { font-size: 14px; font-style: normal; color: var(--dim); font-variant-numeric: tabular-nums; }
+.rules li b { font-size: 16px; font-weight: 550; letter-spacing: -.01em; text-wrap: balance; }
+.rules li span { font-size: 15px; color: var(--mut); text-wrap: pretty; }
 .grids { margin-top: 32px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
 .grids .cardk p + p { padding-top: 0; color: var(--dim); }
 .foot { padding: 40px 0 56px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; font-size: 14px; color: var(--dim); }
@@ -170,20 +168,21 @@ main { margin-left: var(--side); border-left: 1px solid var(--line); min-height:
   .hero .sub { font-size: 17px; }
   .stats { gap: 24px; }
   .tl { margin-top: 40px; }
-  .tl-well { padding: 14px 14px 20px; }
   .tl-top button { display: none; }
-  .tl-ph { grid-template-columns: 1fr; padding: 2px 10px 8px; }
-  .tl-ph li, .tl-ph li + li { padding: 12px 0; border-left: 0; }
-  .tl-ph li + li { border-top: 1px solid var(--line); }
-  .tl-ph b { margin-top: 2px; }
-  .tl-end { margin: 0 10px; flex-direction: column; gap: 2px; }
+  .tl-ph { grid-template-columns: 1fr; gap: 18px; }
+  .tl-ph li { padding-right: 0; }
+  .tl-ph i { margin: 0 0 10px; }
   .stats span { display: block; max-width: 11ch; }
+  .rules section { grid-template-columns: 1fr; padding: 16px 0 12px; }
+  .rules header { padding: 0 0 4px; }
+  .rules li { grid-template-columns: 32px minmax(0, 1fr); gap: 0 8px; }
+  .rules li span { grid-column: 2; margin-top: 2px; }
   .cmd { width: 100%; }
   .two, .rules, .grids { grid-template-columns: 1fr; }
   .detail { padding: 56px 0; }
   .detail h2 { font-size: 28px; }
 }
-@media (max-width: 520px) { .cards { grid-template-columns: 1fr; } .well { aspect-ratio: 16 / 7; } .well svg { width: 26%; } }
+@media (max-width: 520px) { .cards { grid-template-columns: 1fr; } .well { aspect-ratio: 16 / 8; } }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation: none !important; transition: none !important; } }
 </style>
 </head>
@@ -219,23 +218,20 @@ main { margin-left: var(--side); border-left: 1px solid var(--line); min-height:
       <p class="mono">Two skills for your AI agent</p>
       <h1>Your Portfolio Gets 30 Seconds</h1>
       <p class="sub">By Owi. After 15 years in digital product, I can tell you that is about what the first look lasts. One skill reads your portfolio like the person hiring; the other builds it to pass.</p>
-      <div class="cmd" id="install"><i>$</i><code>npx skills@latest add adrituyo/portfolio-skills</code><button type="button" data-copy="npx skills@latest add adrituyo/portfolio-skills">[copy]</button></div>
+      <div class="cmd" id="install"><i>$</i><code>npx skills@latest add adrituyo/portfolio-skills</code><button type="button" data-copy="npx skills@latest add adrituyo/portfolio-skills">Copy</button></div>
       <div class="stats">
         <div><b>30 s</b><span class="mono">The first look</span></div>
         <div><b>17</b><span class="mono">Rules checked</span></div>
         <div><b>3</b><span class="mono">Grids to build with</span></div>
       </div>
       <div class="tl" id="tl" role="img" aria-label="The first 30 seconds of a visit: 0 to 5 seconds on the first screen, 5 to 15 scanning, 15 to 30 on one project, then they leave or they write.">
-        <div class="tl-well">
-          <div class="tl-top"><span>How long a reviewer has been on your page</span><span><b id="tl-t">0:00</b> / 0:30<button type="button" id="tl-re">[replay]</button></span></div>
-          <div class="tl-rail"><i style="left:0"></i><i style="left:16.6667%"></i><i style="left:50%"></i><i style="left:100%"></i><span class="tl-fill"></span><span class="tl-head"></span></div>
-        </div>
+        <div class="tl-top"><span>The first look, in real time</span><span><b id="tl-t">0:00</b> / 0:30<button type="button" id="tl-re">Replay</button></span></div>
         <ol class="tl-ph">
-          <li data-from="0" data-to="5"><span>0–5 s</span><b>First screen</b><p>Who, what, at what level.</p></li>
-          <li data-from="5" data-to="15"><span>5–15 s</span><b>The scan</b><p>Real work, the best of it first.</p></li>
-          <li data-from="15" data-to="30"><span>15–30 s</span><b>One project</b><p>Your part, one decision you made, and what changed because of it.</p></li>
+          <li data-from="0" data-to="5"><i></i><span>0–5 s</span><b>First screen</b><p>Who, what, at what level.</p></li>
+          <li data-from="5" data-to="15"><i></i><span>5–15 s</span><b>The scan</b><p>Real work, the best of it first.</p></li>
+          <li data-from="15" data-to="30"><i></i><span>15–30 s</span><b>One project</b><p>Your part, one decision you made, and what changed because of it.</p></li>
         </ol>
-        <p class="tl-end"><b>Then they leave, or they write to you.</b><span class="mono">0:30</span></p>
+        <p class="tl-end">Then they leave, or they write to you.</p>
       </div>
     </div>
   </section>
@@ -248,24 +244,24 @@ main { margin-left: var(--side); border-left: 1px solid var(--line); min-height:
       <div class="phase">
         <div class="txt"><span class="mono">01</span><h3>Find out where you stand</h3><p>See your portfolio the way a stranger does, before you change anything.</p></div>
         <div class="cards">
-          <a class="cardk" href="#audit"><span class="well"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="26" r="15"/><path d="M24 17v9l6 4M19 5h10M24 5v6"/></svg></span><h4>Portfolio Audit</h4><p>What a reviewer understands in 30 seconds, and the three fixes that matter most.</p></a>
-          <a class="cardk" href="#rules"><span class="well"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 13l3 3 5-6M9 25l3 3 5-6M9 37l3 3 5-6M24 13h15M24 25h15M24 37h15"/></svg></span><h4>The 16 rules</h4><p>What the audit checks, each with its reason and its fix.</p></a>
+          <a class="cardk" href="#audit"><span class="well"><svg viewBox="0 0 160 100" aria-hidden="true"><circle class="c" cx="45" cy="31" r="5"/><rect class="b" x="58" y="26" width="58" height="4" rx="2"/><rect class="a" x="58" y="33" width="34" height="3" rx="1.5"/><circle class="b" cx="45" cy="50" r="5"/><rect class="b" x="58" y="45" width="50" height="4" rx="2"/><rect class="a" x="58" y="52" width="40" height="3" rx="1.5"/><circle class="o" cx="45" cy="69" r="4.25"/><rect class="b" x="58" y="64" width="54" height="4" rx="2"/><rect class="a" x="58" y="71" width="28" height="3" rx="1.5"/></svg></span><h4>Portfolio Audit</h4><p>What a reviewer understands in 30 seconds, and the three fixes that matter most.</p></a>
+          <a class="cardk" href="#rules"><span class="well"><svg viewBox="0 0 160 100" aria-hidden="true"><rect class="c" x="35" y="29" width="10" height="10" rx="3"/><rect class="c" x="51" y="29" width="10" height="10" rx="3"/><rect class="c" x="67" y="29" width="10" height="10" rx="3"/><rect class="c" x="83" y="29" width="10" height="10" rx="3"/><rect class="c" x="99" y="29" width="10" height="10" rx="3"/><rect class="c" x="115" y="29" width="10" height="10" rx="3"/><rect class="c" x="35" y="45" width="10" height="10" rx="3"/><rect class="c" x="51" y="45" width="10" height="10" rx="3"/><rect class="c" x="67" y="45" width="10" height="10" rx="3"/><rect class="b" x="83" y="45" width="10" height="10" rx="3"/><rect class="b" x="99" y="45" width="10" height="10" rx="3"/><rect class="b" x="115" y="45" width="10" height="10" rx="3"/><rect class="b" x="35" y="61" width="10" height="10" rx="3"/><rect class="a" x="51" y="61" width="10" height="10" rx="3"/><rect class="a" x="67" y="61" width="10" height="10" rx="3"/><rect class="a" x="83" y="61" width="10" height="10" rx="3"/><rect class="a" x="99" y="61" width="10" height="10" rx="3"/></svg></span><h4>The 17 rules</h4><p>What the audit checks, each with its reason and its fix.</p></a>
         </div>
       </div>
 
       <div class="phase">
         <div class="txt"><span class="mono">02</span><h3>Build it</h3><p>One content file in, a finished site out. The structure is fixed; the look stays yours.</p></div>
         <div class="cards">
-          <a class="cardk" href="#build"><span class="well"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="9" width="36" height="30" rx="4"/><path d="M6 17h36M16 26l-4 4 4 4M24 34l4-10M32 26l4 4-4 4"/></svg></span><h4>Portfolio Build</h4><p>Builds your portfolio from your projects and tells you what an audit would still flag.</p></a>
+          <a class="cardk" href="#build"><span class="well"><svg viewBox="0 0 160 100" aria-hidden="true"><rect class="a" x="32" y="30" width="36" height="40" rx="5"/><rect class="b" x="39" y="39" width="22" height="3" rx="1.5"/><rect class="b" x="39" y="46" width="15" height="3" rx="1.5"/><rect class="b" x="39" y="53" width="19" height="3" rx="1.5"/><path class="l" d="M75 50h10m-4-4 4 4-4 4"/><rect class="a" x="92" y="24" width="38" height="52" rx="5"/><rect class="b" x="98" y="31" width="18" height="3" rx="1.5"/><rect class="c" x="98" y="39" width="26" height="15" rx="2.5"/><rect class="b" x="98" y="58" width="26" height="12" rx="2.5"/></svg></span><h4>Portfolio Build</h4><p>Builds your portfolio from your projects and tells you what an audit would still flag.</p></a>
         </div>
       </div>
 
       <div class="phase">
         <div class="txt"><span class="mono">03</span><h3>Pick a grid</h3><p>Three page structures that pass the test. Choose by the kind of work, switch with one word.</p></div>
         <div class="cards">
-          <a class="cardk" href="#grid-index"><span class="well"><svg viewBox="0 0 48 34" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="13" height="18" rx="2.500"/><rect x="2" y="23" width="13" height="9" rx="2.500"/><rect x="19" y="2" width="12.500" height="13" rx="2.500"/><rect x="34" y="2" width="12" height="13" rx="2.500"/><rect x="19" y="18" width="27" height="14" rx="2.500"/></svg></span><h4>Index</h4><p>You stay on the left; the work runs large on the right.</p></a>
-          <a class="cardk" href="#grid-columns"><span class="well"><svg viewBox="0 0 48 34" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4h18M34 4h12" stroke-linecap="round"/><rect x="2" y="9" width="20.500" height="10" rx="2.500"/><rect x="25.500" y="9" width="20.500" height="10" rx="2.500"/><rect x="2" y="22" width="20.500" height="10" rx="2.500"/><rect x="25.500" y="22" width="20.500" height="10" rx="2.500"/></svg></span><h4>Columns</h4><p>Every piece the same size, two across.</p></a>
-          <a class="cardk" href="#grid-case"><span class="well"><svg viewBox="0 0 48 34" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 4h22M8 8.500h14" stroke-linecap="round"/><rect x="8" y="13" width="32" height="12" rx="2.500"/><path d="M8 29.500h10M24 29.500h16" stroke-linecap="round"/></svg></span><h4>Case</h4><p>A statement, then one project per page with role, decision and result.</p></a>
+          <a class="cardk" href="#grid-index"><span class="well"><svg viewBox="0 0 160 100" aria-hidden="true"><rect class="a" x="30" y="20" width="30" height="60" rx="4"/><circle class="b" cx="38" cy="29" r="3.5"/><rect class="b" x="35" y="37" width="19" height="3" rx="1.5"/><rect class="b" x="35" y="43" width="13" height="3" rx="1.5"/><rect class="b" x="64" y="20" width="32" height="28" rx="4"/><rect class="b" x="100" y="20" width="30" height="28" rx="4"/><rect class="b" x="64" y="52" width="66" height="28" rx="4"/></svg></span><h4>Index</h4><p>You stay on the left; the work runs large on the right.</p></a>
+          <a class="cardk" href="#grid-columns"><span class="well"><svg viewBox="0 0 160 100" aria-hidden="true"><rect class="b" x="30" y="20" width="38" height="4" rx="2"/><rect class="a" x="108" y="20" width="22" height="4" rx="2"/><rect class="b" x="30" y="31" width="48" height="23" rx="4"/><rect class="b" x="82" y="31" width="48" height="23" rx="4"/><rect class="b" x="30" y="58" width="48" height="23" rx="4"/><rect class="b" x="82" y="58" width="48" height="23" rx="4"/></svg></span><h4>Columns</h4><p>Every piece the same size, two across.</p></a>
+          <a class="cardk" href="#grid-case"><span class="well"><svg viewBox="0 0 160 100" aria-hidden="true"><rect class="b" x="40" y="18" width="62" height="5" rx="2.5"/><rect class="b" x="40" y="26" width="38" height="5" rx="2.5"/><rect class="b" x="40" y="39" width="80" height="29" rx="4"/><rect class="a" x="40" y="75" width="22" height="3" rx="1.5"/><rect class="a" x="70" y="75" width="50" height="3" rx="1.5"/><rect class="a" x="40" y="81" width="16" height="3" rx="1.5"/><rect class="a" x="70" y="81" width="38" height="3" rx="1.5"/></svg></span><h4>Case</h4><p>A statement, then one project per page with role, decision and result.</p></a>
         </div>
       </div>
     </div>
@@ -301,7 +297,7 @@ main { margin-left: var(--side); border-left: 1px solid var(--line); min-height:
           </ul>
         </div>
       </div>
-      <p class="lede" style="margin-top:28px">It never invents a fact about you. When a better headline needs a number it does not have, it leaves a slot: <span class="mono" style="font-size:14px;color:var(--mut)">[N] years</span>, <span class="mono" style="font-size:14px;color:var(--mut)">[team size]</span>.</p>
+      <p class="lede" style="margin-top:28px">It never invents a fact about you. When a better headline needs a number it does not have, it leaves a slot: <code class="slot">[N] years</code>, <code class="slot">[team size]</code>.</p>
     </div>
   </section>
 
@@ -311,34 +307,32 @@ main { margin-left: var(--side); border-left: 1px solid var(--line); min-height:
       <h2>The 17 rules</h2>
       <p class="lede">Grouped by the moment a reviewer meets them. None of them is about taste: a plain portfolio can pass all seventeen and a beautiful one can fail half.</p>
       <div class="rules">
-        <section><h3>First screen · 0–5 s</h3><ol>
-          <li><i>01</i><div>Say what you do, in one sentence<span>A line that could not sit on anyone else's site.</span></div></li>
-          <li><i>02</i><div>Show work on the first screen<span>The claim needs evidence before the first scroll.</span></div></li>
-          <li><i>03</i><div>Signal level and proof<span>Years, names, numbers. Specific and checkable.</span></div></li>
+        <section><header><h3>First screen</h3><span>0–5 s</span></header><ol>
+          <li><i>01</i><b>Say what you do, in one sentence</b><span>A line that could not sit on anyone else's site.</span></li>
+          <li><i>02</i><b>Show work on the first screen</b><span>The claim needs evidence before the first scroll.</span></li>
+          <li><i>03</i><b>Signal level and proof</b><span>Years, names, numbers. Specific and checkable.</span></li>
         </ol></section>
-        <section><h3>Scan · 5–15 s</h3><ol>
-          <li><i>04</i><div>Strongest, most relevant work first<span>Most visitors see one project. Choose which.</span></div></li>
-          <li><i>05</i><div>Few projects, each one edited<span>You are judged by the weakest piece you show.</span></div></li>
-          <li><i>06</i><div>Readable at a glance<span>Title and one line, always visible. No hover.</span></div></li>
+        <section><header><h3>The scan</h3><span>5–15 s</span></header><ol>
+          <li><i>04</i><b>Strongest, most relevant work first</b><span>Most visitors see one project. Choose which.</span></li>
+          <li><i>05</i><b>Few projects, each one edited</b><span>You are judged by the weakest piece you show.</span></li>
+          <li><i>06</i><b>Readable at a glance</b><span>Title and one line, always visible. No hover.</span></li>
         </ol></section>
-        <section><h3>One project · 15–30 s</h3><ol>
-          <li><i>07</i><div>Say what your part was<span>Role, team, and client or personal concept.</span></div></li>
-          <li><i>08</i><div>Show one decision<span>What you chose and why, not the process you followed.</span></div></li>
-          <li><i>09</i><div>Show the change<span>Before and after, a result, or what shipped.</span></div></li>
+        <section><header><h3>One project</h3><span>15–30 s</span></header><ol>
+          <li><i>07</i><b>Say what your part was</b><span>Role, team, and client or personal concept.</span></li>
+          <li><i>08</i><b>Show one decision</b><span>What you chose and why, not the process you followed.</span></li>
+          <li><i>09</i><b>Show the change</b><span>Before and after, a result, or what shipped.</span></li>
         </ol></section>
-        <section><h3>Exit</h3><ol>
-          <li><i>10</i><div>One clear ask, one way to reach you<span>A visible email and a reason to write.</span></div></li>
-          <li><i>11</i><div>Aimed at something<span>After 30 seconds, hired for what?</span></div></li>
+        <section><header><h3>The exit</h3><span>After 30 s</span></header><ol>
+          <li><i>10</i><b>One clear ask, one way to reach you</b><span>A visible email and a reason to write.</span></li>
+          <li><i>11</i><b>Aimed at something</b><span>After 30 seconds, hired for what?</span></li>
         </ol></section>
-        <section><h3>Everything around it</h3><ol>
-          <li><i>12</i><div>Works on a phone<span>Links are opened from chats and feeds.</span></div></li>
-          <li><i>13</i><div>Loads fast<span>A slow first screen spends the 30 seconds on nothing.</span></div></li>
-          <li><i>14</i><div>Shares well<span>The preview card is seen before the page.</span></div></li>
-        </ol></section>
-        <section><h3>&nbsp;</h3><ol>
-          <li><i>15</i><div>Readable by machines<span>Recruiters search, and ask AI assistants for names.</span></div></li>
-          <li><i>16</i><div>No friction<span>No passwords, loaders, dead links or cursor tricks.</span></div></li>
-          <li><i>17</i><div>Always within reach<span>Your name and your email stay on screen at every scroll.</span></div></li>
+        <section><header><h3>Everything around it</h3><span>At any moment</span></header><ol>
+          <li><i>12</i><b>Works on a phone</b><span>Links are opened from chats and feeds.</span></li>
+          <li><i>13</i><b>Loads fast</b><span>A slow first screen spends the 30 seconds on nothing.</span></li>
+          <li><i>14</i><b>Shares well</b><span>The preview card is seen before the page.</span></li>
+          <li><i>15</i><b>Readable by machines</b><span>Recruiters search, and ask AI assistants for names.</span></li>
+          <li><i>16</i><b>No friction</b><span>No passwords, loaders, dead links or cursor tricks.</span></li>
+          <li><i>17</i><b>Always within reach</b><span>Your name and your email stay on screen at every scroll.</span></li>
         </ol></section>
       </div>
     </div>
@@ -381,9 +375,9 @@ Built "case" layout: 3 projects, 18 pictures
       <h2>Pick a grid</h2>
       <p class="lede">Each one answers the same question for a different kind of work: in 30 seconds, what does the reviewer need to see?</p>
       <div class="grids">
-        <div class="cardk" id="grid-index"><span class="well"><svg viewBox="0 0 48 34" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="13" height="18" rx="2.500"/><rect x="2" y="23" width="13" height="9" rx="2.500"/><rect x="19" y="2" width="12.500" height="13" rx="2.500"/><rect x="34" y="2" width="12" height="13" rx="2.500"/><rect x="19" y="18" width="27" height="14" rx="2.500"/></svg></span><h4>Index</h4><p>Your name, headline and email stay fixed on the left while the work scrolls large on the right.</p><p>Art direction, brand, 3D, illustration.</p></div>
-        <div class="cardk" id="grid-columns"><span class="well"><svg viewBox="0 0 48 34" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4h18M34 4h12" stroke-linecap="round"/><rect x="2" y="9" width="20.500" height="10" rx="2.500"/><rect x="25.500" y="9" width="20.500" height="10" rx="2.500"/><rect x="2" y="22" width="20.500" height="10" rx="2.500"/><rect x="25.500" y="22" width="20.500" height="10" rx="2.500"/></svg></span><h4>Columns</h4><p>A short header, then every piece at one size, two across. It reads as a body of work.</p><p>Film, motion, photography.</p></div>
-        <div class="cardk" id="grid-case"><span class="well"><svg viewBox="0 0 48 34" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 4h22M8 8.500h14" stroke-linecap="round"/><rect x="8" y="13" width="32" height="12" rx="2.500"/><path d="M8 29.500h10M24 29.500h16" stroke-linecap="round"/></svg></span><h4>Case</h4><p>A large statement, one card per project with its result, and a page each for role, decision and outcome.</p><p>Product, UX, design leadership.</p></div>
+        <div class="cardk" id="grid-index"><span class="well"><svg viewBox="0 0 160 100" aria-hidden="true"><rect class="a" x="30" y="20" width="30" height="60" rx="4"/><circle class="b" cx="38" cy="29" r="3.5"/><rect class="b" x="35" y="37" width="19" height="3" rx="1.5"/><rect class="b" x="35" y="43" width="13" height="3" rx="1.5"/><rect class="b" x="64" y="20" width="32" height="28" rx="4"/><rect class="b" x="100" y="20" width="30" height="28" rx="4"/><rect class="b" x="64" y="52" width="66" height="28" rx="4"/></svg></span><h4>Index</h4><p>Your name, headline and email stay fixed on the left while the work scrolls large on the right.</p><p>Art direction, brand, 3D, illustration.</p></div>
+        <div class="cardk" id="grid-columns"><span class="well"><svg viewBox="0 0 160 100" aria-hidden="true"><rect class="b" x="30" y="20" width="38" height="4" rx="2"/><rect class="a" x="108" y="20" width="22" height="4" rx="2"/><rect class="b" x="30" y="31" width="48" height="23" rx="4"/><rect class="b" x="82" y="31" width="48" height="23" rx="4"/><rect class="b" x="30" y="58" width="48" height="23" rx="4"/><rect class="b" x="82" y="58" width="48" height="23" rx="4"/></svg></span><h4>Columns</h4><p>A short header, then every piece at one size, two across. It reads as a body of work.</p><p>Film, motion, photography.</p></div>
+        <div class="cardk" id="grid-case"><span class="well"><svg viewBox="0 0 160 100" aria-hidden="true"><rect class="b" x="40" y="18" width="62" height="5" rx="2.5"/><rect class="b" x="40" y="26" width="38" height="5" rx="2.5"/><rect class="b" x="40" y="39" width="80" height="29" rx="4"/><rect class="a" x="40" y="75" width="22" height="3" rx="1.5"/><rect class="a" x="70" y="75" width="50" height="3" rx="1.5"/><rect class="a" x="40" y="81" width="16" height="3" rx="1.5"/><rect class="a" x="70" y="81" width="38" height="3" rx="1.5"/></svg></span><h4>Case</h4><p>A large statement, one card per project with its result, and a page each for role, decision and outcome.</p><p>Product, UX, design leadership.</p></div>
       </div>
     </div>
   </section>
@@ -401,13 +395,12 @@ Built "case" layout: 3 projects, 18 pictures
   const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
   const root = document.documentElement;
 
-  // The 30 seconds, in real time: the rail fills, each phase lights up as the reviewer reaches it, and it stops.
+  // The 30 seconds, in real time: each line fills while the reviewer is in that moment, and it stops.
   const tl = $('#tl'), phases = $$('.tl-ph li'), clock = $('#tl-t');
   let t0 = 0, raf = 0;
   const draw = t => {
-    tl.style.setProperty('--p', (Math.min(t, 30) / 30).toFixed(4));
     clock.textContent = '0:' + String(Math.min(30, Math.floor(t))).padStart(2, '0');
-    phases.forEach(li => { const a = +li.dataset.from, b = +li.dataset.to; li.classList.toggle('now', t >= a && t < b); li.classList.toggle('done', t >= b); });
+    phases.forEach(li => { const a = +li.dataset.from, b = +li.dataset.to; li.style.setProperty('--q', Math.max(0, Math.min(1, (t - a) / (b - a))).toFixed(4)); li.classList.toggle('now', t >= a && t < b); li.classList.toggle('done', t >= b); });
     tl.classList.toggle('over', t >= 30);
   };
   const tick = () => { const t = (Date.now() - t0) / 1000; draw(t); if (t < 30) raf = requestAnimationFrame(tick); };
@@ -418,8 +411,8 @@ Built "case" layout: 3 projects, 18 pictures
 
   // Copy the install line
   $$('[data-copy]').forEach(b => b.addEventListener('click', async () => {
-    try { await navigator.clipboard.writeText(b.dataset.copy); b.textContent = '[copied]'; } catch (e) { b.textContent = '[select + copy]'; }
-    setTimeout(() => { b.textContent = '[copy]'; }, 1600);
+    try { await navigator.clipboard.writeText(b.dataset.copy); b.textContent = 'Copied'; } catch (e) { b.textContent = 'Select and copy'; }
+    setTimeout(() => { b.textContent = 'Copy'; }, 1600);
   }));
 
   // Light and dark, remembered in this browser
