@@ -1,4 +1,4 @@
-# The 16 rules, in one line each
+# The 17 rules, in one line each
 
 The build cites these by number. The full version, with the reason, the check and the fix for each, is in the
 `portfolio-audit` skill.
@@ -21,3 +21,4 @@ The build cites these by number. The full version, with the reason, the check an
 | 14 | Shares well | `site.share_image`, `site.title`, `site.description` |
 | 15 | Readable by machines | `site.url`, `facts`, `alt` on pictures |
 | 16 | No friction | built in: no loader, no hover-only text; do not leave slots or placeholder text |
+| 17 | Who you are and how to reach you, always within reach | built in: the dock, from `person.name`, `person.role`, `person.email` |

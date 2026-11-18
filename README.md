@@ -38,7 +38,7 @@ Start from `skills/portfolio-build/assets/example/portfolio.json`.
 skills/
 ├── portfolio-audit/
 │   ├── SKILL.md              how the audit runs and the report format
-│   ├── references/rules.md   the 16 rules, each with its reason, check and fix
+│   ├── references/rules.md   the 17 rules, each with its reason, check and fix
 │   └── scripts/snapshot.py   facts about a page (title, share card, first words, images, structured data)
 └── portfolio-build/
     ├── SKILL.md              the steps: target, grid, content file, look, build

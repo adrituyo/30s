@@ -38,6 +38,16 @@
     addEventListener('scroll', mark, { passive: true }); mark();
   }
 
+  // Dock: the name and the address follow the visitor. It shows once the contact block has scrolled away
+  // and steps aside at the end of the page, where the address is already on screen in large type.
+  const dock = $('.dock');
+  if (dock) {
+    const marks = $$('.contact, .info .big, .info .fine');
+    const seen = el => { const r = el.getBoundingClientRect(); return r.width > 0 && r.bottom > 0 && r.top < innerHeight; };
+    const place = () => { const on = !marks.some(seen); dock.classList.toggle('on', on); dock.inert = !on; };
+    addEventListener('scroll', place, { passive: true }); addEventListener('resize', place); place();
+  }
+
   // Email: one click copies the address as well as opening the mail app
   $$('[data-copy]').forEach(a => a.addEventListener('click', () => {
     navigator.clipboard && navigator.clipboard.writeText(a.dataset.copy).catch(() => {});

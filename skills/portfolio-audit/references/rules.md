@@ -1,4 +1,4 @@
-# The 16 rules
+# The 17 rules
 
 Each rule has the reason behind it, how to check it, and what a fix looks like. The reasons matter more than
 the wording: when a portfolio breaks a rule and still communicates, say so and pass it.
@@ -9,7 +9,8 @@ First screen (0–5 s): 1 Say what you do · 2 Show work at once · 3 Level and 
 Scan (5–15 s): 4 Strongest first · 5 Few and edited · 6 Readable at a glance
 One project (15–30 s): 7 Your part · 8 One decision · 9 Show the change
 Exit: 10 One ask · 11 Aimed at something
-Everything around it: 12 Phone · 13 Speed · 14 Share card · 15 Readable by machines · 16 No friction
+Everything around it: 12 Phone · 13 Speed · 14 Share card · 15 Readable by machines · 16 No friction ·
+17 Always within reach
 
 ---
 
@@ -166,3 +167,20 @@ soon" projects, an out-of-date year, captions that complain about clients, an em
 and never read.
 **Fix.** Remove them. If work is under NDA, show what can be shown and say that the rest is available on
 request.
+
+### 17. Who you are and how to reach you, always within reach
+**Why.** The moment a reviewer decides to write is not the moment the page planned for. It comes halfway down
+the third project, or on a project page they landed on from a shared link. If the name and the contact are
+only at the top and the bottom, acting on that decision costs a long scroll, and some of them will not make
+it. Rule 10 asks that a way to reach you exists; this one asks that it never leaves.
+**Check.** Scroll to the middle of the home page, and to the middle of one project page, at desktop and phone
+size. Without scrolling, can you tell whose site this is, and reach the contact in one action? A header, side
+panel or small bar that stays on screen with the name and an email or contact link does it.
+**Pass** when the name and a way to contact are on screen at every point, on both sizes. **Weak** when it
+holds on one size only (a fixed side panel on desktop that scrolls away on a phone is the common case), when
+the name stays and the contact does not, or when the contact sits behind a menu that has to be opened.
+**Fail** when the middle of the page shows neither, or when project pages have no contact at all.
+This needs a browser or screenshots taken mid-page. With only the HTML, mark **Not checked**.
+**Fix.** Keep one small element on screen: name, role, and the email. It can hide while the full contact
+block is already in view, at the top and at the end. Keep it small: a bar that covers a fifth of a phone
+screen trades this rule for rules 12 and 16.

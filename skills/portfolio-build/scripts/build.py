@@ -19,11 +19,11 @@ LABELS = {
     "en": {"skip": "Skip to work", "about": "About", "index": "Index", "facts": "Facts", "authorship": "About this work", "decision": "Decision",
            "the_decision": "The decision", "result": "What changed", "before": "Before", "after": "After", "personal": "Personal concept",
            "freelance": "Freelance", "read": "Read the case →", "all": "← All work", "next": "Next", "portrait": "Portrait of",
-           "role": "Role", "team": "Team", "year": "Year", "for": "For", "close": "Close", "previous": "Previous"},
+           "role": "Role", "team": "Team", "year": "Year", "for": "For", "close": "Close", "previous": "Previous", "contact": "Contact"},
     "es": {"skip": "Ir al trabajo", "about": "Sobre mí", "index": "Índice", "facts": "Datos", "authorship": "Sobre este trabajo", "decision": "Decisión",
            "the_decision": "La decisión", "result": "Qué cambió", "before": "Antes", "after": "Después", "personal": "Proyecto personal",
            "freelance": "Freelance", "read": "Ver el caso →", "all": "← Todo el trabajo", "next": "Siguiente", "portrait": "Retrato de",
-           "role": "Rol", "team": "Equipo", "year": "Año", "for": "Para", "close": "Cerrar", "previous": "Anterior"},
+           "role": "Rol", "team": "Equipo", "year": "Año", "for": "Para", "close": "Cerrar", "previous": "Anterior", "contact": "Contacto"},
 }
 SLOT = re.compile(r"\[[^\[\]]{2,80}\]")
 e = lambda s: html.escape(str(s), quote=True)
@@ -181,6 +181,17 @@ class Site:
         mail = self.person.get("email")
         return f'<div class="contact">{links}' + (f'<a class="pill mail" href="mailto:{e(mail)}" data-copy="{e(mail)}">{e(mail)}</a>' if mail else "") + "</div>"
 
+    def dock(self):
+        """Rule 17: the name, the role and the address stay within reach. main.js shows this bar once the
+        contact block has scrolled away and hides it at the end of the page, where the address already is."""
+        P = self.person; mail = P.get("email")
+        if not mail: return ""
+        emp = (P.get("employer") or {}).get("name"); role = " @ ".join(x for x in (P.get("role"), emp) if x)
+        pic = f'<img src="{self.P}{e(P["photo"])}" width="28" height="28" alt="">' if P.get("photo") else ""
+        return (f'<aside class="dock" aria-label="{e(self.L["contact"])}"><a class="dock-id" href="{self.P or "#"}">{pic}<b>{e(P.get("name", ""))}</b>'
+                + (f"<span>{e(role)}</span>" if role else "")
+                + f'</a><a class="pill mail" href="mailto:{e(mail)}" data-copy="{e(mail)}">{e(mail)}</a></aside>\n')
+
     def say(self):
         return "".join(f"<p>{rich(self.person[k])}</p>" for k in ("headline", "proof") if self.person.get(k))
 
@@ -226,7 +237,7 @@ class Site:
                  f'<script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>']
         return (f'<!doctype html>\n<html lang="{e(self.site.get("lang", "en"))}" data-mode="{e(t.get("mode", "dark"))}"'
                 + (f' style="{e(style)}"' if style else "") + ">\n<head>\n" + "\n".join(head) + "\n</head>\n"
-                f'<body class="l-{cls or self.layout}" data-close="{e(self.L["close"])}" data-prev="{e(self.L["previous"])}" data-next="{e(self.L["next"])}">\n<a class="skip" href="#work">{e(self.L["skip"])}</a>\n{body}\n'
+                f'<body class="l-{cls or self.layout}" data-close="{e(self.L["close"])}" data-prev="{e(self.L["previous"])}" data-next="{e(self.L["next"])}">\n<a class="skip" href="#work">{e(self.L["skip"])}</a>\n{body}\n{self.dock()}'
                 f'<script src="{self.P}assets/main.js" defer></script>\n</body>\n</html>\n')
 
     # ── the three layouts ─────────────────────────────────────────────────
@@ -304,7 +315,7 @@ class Site:
             if self.layout == "case":
                 if not p.get("decision") and not any(isinstance(r, dict) and "note" in r for r in p.get("rows", [])): warn(8, f'"{t}" shows no decision')
                 if not p.get("result"): warn(9, f'"{t}" does not say what changed or what shipped')
-        if not P.get("email"): warn(10, "no email")
+        if not P.get("email"): warn(10, "no email"); warn(17, "no email, so the dock that keeps your contact on screen was left out")
         if not self.d.get("ask"): warn(10, 'no "ask": one sentence on what to write to you for')
         if not self.site.get("share_image"): warn(14, 'no "share_image" (1200×630) for link previews')
         elif not self.site["share_image"].startswith("http") and not os.path.exists(os.path.join(self.root, self.site["share_image"])):

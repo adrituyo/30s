@@ -83,6 +83,11 @@ use `case`, because the role is judged on scope and decisions.
 - The first screen says who, what and at what level, and shows a way to reach the person.
 - Every project shows its title, a summary and a role line without hover or click.
 - The page ends with plain facts, one ask and the email in large type.
+- **The dock.** Between those two points the name, the role and the email follow the visitor in a small bar
+  at the bottom of the screen. It appears when the contact block scrolls out of view and steps aside at the
+  end of the page, where the email is already there in large type. In `index` on a desktop the profile card
+  never leaves, so the dock never shows; on a phone, and in the other two grids, it does. It needs
+  `person.email`.
 - Titles, descriptions, share tags, structured data and a sitemap are written for search engines and AI
   assistants.
 - Nothing waits on an animation: what is on the first screen appears at once.

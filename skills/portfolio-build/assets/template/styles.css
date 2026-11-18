@@ -168,6 +168,19 @@ a.t { cursor: zoom-in; }
 .next:hover b { color: var(--acc); }
 .next b { font-weight: 500; transition: color .2s; }
 
+/* ── Dock: who this is and the address, within reach from anywhere on the page (rule 17).
+   main.js adds .on once the contact block has scrolled away. Without scripts it simply stays. ── */
+.dock { position: fixed; z-index: 10; left: 50%; bottom: calc(12px + env(safe-area-inset-bottom, 0px)); translate: -50% 0; display: flex; align-items: center; gap: 14px; max-width: calc(100vw - 2 * var(--pad)); padding: 6px 6px 6px 8px; border-radius: 100px; background: color-mix(in srgb, var(--card) 82%, transparent); border: 1px solid var(--edge); box-shadow: 0 10px 34px rgba(0, 0, 0, .3), 0 1px 2px rgba(0, 0, 0, .2); backdrop-filter: blur(18px) saturate(1.5); -webkit-backdrop-filter: blur(18px) saturate(1.5); transition: translate .5s var(--ease), opacity .3s, visibility 0s; }
+.js .dock:not(.on) { translate: -50% calc(100% + 28px); opacity: 0; visibility: hidden; transition: translate .5s var(--ease), opacity .3s, visibility 0s .5s; }
+.dock-id { display: flex; align-items: center; gap: 10px; min-width: 0; white-space: nowrap; font-size: 14px; }
+.dock-id:not(:has(img)) { padding-left: 10px; }
+.dock-id img { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; flex: none; background: var(--panel); }
+.dock-id b { font-weight: 600; letter-spacing: -.005em; }
+.dock-id span { color: var(--mut); overflow: hidden; text-overflow: ellipsis; }
+.dock .mail { flex: 0 1 auto; display: block; min-width: 0; height: 32px; line-height: 32px; padding: 0 14px; overflow: hidden; text-overflow: ellipsis; background: var(--fg); color: var(--bg); font-size: 14px; }
+.dock .mail:hover { background: var(--acc); color: var(--bg); }
+@media print { .dock { display: none; } }
+
 /* ── Viewer ── */
 .lb { position: fixed; inset: 0; width: 100vw; height: 100vh; height: 100dvh; max-width: none; max-height: none; margin: 0; padding: 0; border: 0; background: rgba(6, 6, 6, .97); color: #f2f1ee; overflow: hidden; }
 .lb::backdrop { background: #060606; }
@@ -218,6 +231,8 @@ a.t { cursor: zoom-in; }
   .l-case .note { grid-template-columns: 1fr; }
   .l-case .note .label, .l-case .note span:last-child { grid-column: 1; }
   .lb-stage { inset: 52px 0 56px; }
+  .dock { gap: 10px; }
+  .dock-id span { display: none; }
 }
 @media (min-width: 901px) and (max-width: 1180px) {
   :root { --aside: 300px; }

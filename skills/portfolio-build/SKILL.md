@@ -25,7 +25,7 @@ python3 scripts/build.py path/to/their-site/portfolio.json
 ```
 
 The site is written next to the content file. The script then prints two lists: what a 30-second audit would
-still flag, each line tied to a rule number (`references/rules.md` has the sixteen in one line each), and every
+still flag, each line tied to a rule number (`references/rules.md` has the seventeen in one line each), and every
 `[slot]` still waiting for a fact. Treat both as the to-do list.
 
 ## Steps
@@ -144,6 +144,8 @@ job.
 - Do not add an intro animation, a loader, a custom cursor or scroll effects that delay the content. The
   template shows the first screen at once on purpose.
 - Do not hide project titles behind hover. Phones have no hover.
+- Do not remove the dock, the small bar with the name and the email that appears once the contact block has
+  scrolled away. A reviewer decides to write in the middle of a project, not at the end of the page.
 - Do not pad thin work with process pictures (sticky notes, personas). One decision, said plainly, is worth
   more.
 - Do not edit the generated HTML by hand: the next build overwrites it. Change the content file, or the

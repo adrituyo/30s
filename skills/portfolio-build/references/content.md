@@ -42,7 +42,7 @@ A `[slot in brackets]` marks a fact still to come: it shows on the site as writt
 | `employer` | Optional. `{ "name": "...", "url": "..." }`. Shown as `Role @ Employer`. |
 | `city` | Optional. Where they are based. |
 | `photo` | Optional. A square portrait. |
-| `email` | The one address to write to. |
+| `email` | The one address to write to. Also shown in the dock, the bar that keeps name and contact on screen while the visitor scrolls. |
 | `headline` | One sentence: what they make, for whom, with a fact. Rule 1. |
 | `proof` | One or two sentences of names and numbers. Rule 3. |
 | `links` | Up to three: `[ { "label": "LinkedIn", "url": "..." } ]`. The label is shown as written, so `"@handle"` works. More than three competes with the email. |
@@ -73,7 +73,7 @@ Everything here is optional. This block is the look; the rest of the file is the
 - `labels`: optional. Replaces the template's own words. English and Spanish are built in and chosen by
   `site.lang`; for another language give all of them: `skip`, `about`, `index`, `facts`, `authorship`,
   `decision`, `the_decision`, `result`, `before`, `after`, `personal`, `freelance`, `read`, `all`, `next`,
-  `portrait`, `role`, `team`, `year`, `for`, `close`, `previous`.
+  `portrait`, `role`, `team`, `year`, `for`, `close`, `previous`, `contact`.
 
 ## `projects`
 

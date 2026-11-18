@@ -114,7 +114,7 @@ and write rewritten copy in the page's language too, since it is meant to be pas
 **Target:** [the role or client, and whether it was given or assumed]
 **Verdict:** [one or two sentences. If they asked a yes/no question, answer it first. Then: would this pass
 the first filter for that target, and why]
-**Score:** [N] of 16 rules pass · [N] weak · [N] fail · [N] not checked ([N] partly)
+**Score:** [N] of 17 rules pass · [N] weak · [N] fail · [N] not checked ([N] partly)
 **Based on:** [what you saw: live page in a browser, screenshots, HTML only]
 
 ## What a stranger understands in 30 seconds
