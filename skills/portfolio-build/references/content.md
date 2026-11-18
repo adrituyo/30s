@@ -56,7 +56,7 @@ Everything here is optional. This block is the look; the rest of the file is the
 | `mode` | `"dark"`, `"light"` or `"auto"` (follows the visitor's system) | `dark` |
 | `accent` | One colour, used sparingly: the active item, hover on the email | near-white |
 | `font` | CSS font family for text, such as `"Inter", system-ui, sans-serif` | system font |
-| `mono` | CSS font family for small labels | system monospace |
+| `mono` | CSS font family for small labels (numbers, role lines, tags), if they should differ from the text | the same as `font` |
 | `font_url` | A stylesheet address that loads those fonts, if they are not system fonts | none |
 | `radius` | Corner radius of pictures, in pixels. `0` for square corners | `14` |
 | `gap` | Space between pictures, in pixels | `8` |
