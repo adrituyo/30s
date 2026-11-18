@@ -18,6 +18,13 @@ Install:
 npx skills@latest add adrituyo/portfolio-skills
 ```
 
+That adds the skills to the project folder you are in. If that folder is a work repository, they will show
+up there as new files. To have them in every project instead, and keep them out of any repository, add `-g`:
+
+```
+npx skills@latest add adrituyo/portfolio-skills -g
+```
+
 Then give your agent a URL:
 
 ```
@@ -30,7 +37,8 @@ audit my portfolio https://example.com, I'm applying for senior product designer
 python3 skills/portfolio-build/scripts/build.py path/to/portfolio.json
 ```
 
-Start from `skills/portfolio-build/assets/example/portfolio.json`.
+Start from `skills/portfolio-build/assets/example/portfolio.json`. Add `--compare` to also get the same
+content in all three grids, in a `compare/` folder, and choose by looking.
 
 ## Layout
 

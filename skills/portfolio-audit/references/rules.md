@@ -184,3 +184,7 @@ This needs a browser or screenshots taken mid-page. With only the HTML, mark **N
 **Fix.** Keep one small element on screen: name, role, and the email. It can hide while the full contact
 block is already in view, at the top and at the end. Keep it small: a bar that covers a fifth of a phone
 screen trades this rule for rules 12 and 16.
+**Watch for the opposite failure.** A floating name or contact element that sits on top of text, captions or
+the page's own buttons is in the way, most often on a phone. Content may pass under it while scrolling;
+nothing should be left unreadable or untappable behind it when the page stops, including at the very end.
+Mark this rule on whether contact is in reach, and count the obstruction under rule 12.

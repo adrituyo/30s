@@ -49,11 +49,23 @@ Material the person is unsure about (a sketchbook, a student project, something 
 for a reason, and a portfolio is judged by its weakest piece. Say what you left out and why. Three strong
 projects are a complete portfolio; do not pad to reach four.
 
-### 2. Choose the grid
+### 2. Let the person choose the grid
 
-Read `references/grids.md`. It describes the three grids and who each one suits. Pick one from the kind of
-work and the target, say which and why in one sentence, and move on. The person can switch later by changing
-one word in the file, so this is not a decision to agonise over.
+Read `references/grids.md`. It describes the three grids and who each one suits. The grid decides how the
+whole site reads, so it is the person's choice, not yours. Your part is to make it an easy one.
+
+Before you build, name the three in one short message, one line each, say which you recommend for their work
+and target and why, and ask which they want. Put it together with anything else you need to ask in step 1, so
+there is one round of questions and not two.
+
+- If they already named a grid, use it and do not reopen the question.
+- If they pick a different one from your recommendation, build theirs. Say once what it costs them if it
+  matters (for example, `index` has no place for a decision and a result), then drop it.
+- If they are unsure, or nobody is there to answer, go ahead with your recommendation and build with
+  `--compare` in step 5, so all three are there to open side by side.
+
+Switching later is one word in the file, so nobody is locked in. That is a reason to offer the choice lightly,
+not a reason to skip it.
 
 ### 3. Write the content file
 
@@ -104,7 +116,16 @@ the system font for most visitors. Either give both, or choose a stack of system
 
 ### 5. Build, look, fix
 
-Run the build. Then look at it in a browser at desktop and phone width if you can: start
+Run the build. If the person has not chosen a grid themselves, add `--compare`:
+
+```bash
+python3 scripts/build.py path/to/their-site/portfolio.json --compare
+```
+
+It also writes the same content in all three grids to a `compare/` folder, with a page that links them.
+Show the person that page and let them pick. `compare/` is for choosing only: delete it before publishing.
+
+Then look at it in a browser at desktop and phone width if you can: start
 `python3 -m http.server` in the site folder (the `case` grid links to project folders, which need a server)
 and check the first screen yourself: name, what they do, proof, a way to reach them, and a real piece of work,
 without scrolling.
@@ -117,7 +138,8 @@ image, a long headline). Hand the rest to the person as a short list of what onl
 
 ### 6. Hand over
 
-Tell them: which grid and why, what you wrote for the headline, what you left out, anything you inferred, the
+Tell them: which grid and whether they chose it or you did (and that the other two are one word away, or in
+`compare/` if you built it), what you wrote for the headline, what you left out, anything you inferred, the
 slots still to fill, what the audit list still shows, and how to change things (edit `portfolio.json`, run the
 build again). The folder is a complete static site: it can be published on any static host by uploading it as
 it is.

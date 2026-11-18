@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
 """Builds a portfolio from one content file. Standard library only.
 
-Usage:  python3 build.py path/to/portfolio.json
+Usage:  python3 build.py path/to/portfolio.json [--compare]
 
 Writes index.html (plus one page per project in the "case" layout), assets/styles.css, assets/main.js,
 sitemap.xml and robots.txt next to the content file, then lists what the 30-second rules would still flag.
-Image paths in the content file are relative to its folder. See references/content.md for every field."""
+Image paths in the content file are relative to its folder. See references/content.md for every field.
+
+--compare also writes the same content in all three layouts to compare/, with a page that links them, so the
+person can choose a grid by looking. That folder is for choosing: delete it before publishing."""
 import html, json, os, re, shutil, struct, sys, datetime
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -78,7 +81,9 @@ class Site:
         self.L = dict(LABELS["en"]); self.L.update(LABELS.get(str(self.site.get("lang", "en"))[:2].lower(), {})); self.L.update(self.d.get("labels", {}))
         for i, p in enumerate(self.projects):
             p.setdefault("id", re.sub(r"[^a-z0-9]+", "-", p.get("title", f"project-{i + 1}").lower()).strip("-"))
-        self.P = ""            # path back to the site root from the page being written
+        self.P = ""            # path back to the site root (pictures, assets) from the page being written
+        self.H = ""            # path back to the home page of the layout being written
+        self.out = self.up = ""  # --compare writes each layout under compare/<layout>/: where, and the way back up
         self.first = True      # the first picture of a page loads eagerly, the rest lazily
         self.count = 0
         self.images = []       # every picture used, for the sitemap
@@ -188,7 +193,7 @@ class Site:
         if not mail: return ""
         emp = (P.get("employer") or {}).get("name"); role = " @ ".join(x for x in (P.get("role"), emp) if x)
         pic = f'<img src="{self.P}{e(P["photo"])}" width="28" height="28" alt="">' if P.get("photo") else ""
-        return (f'<aside class="dock" aria-label="{e(self.L["contact"])}"><a class="dock-id" href="{self.P or "#"}">{pic}<b>{e(P.get("name", ""))}</b>'
+        return (f'<aside class="dock" aria-label="{e(self.L["contact"])}"><a class="dock-id" href="{self.H or "#"}">{pic}<b>{e(P.get("name", ""))}</b>'
                 + (f"<span>{e(role)}</span>" if role else "")
                 + f'</a><a class="pill mail" href="mailto:{e(mail)}" data-copy="{e(mail)}">{e(mail)}</a></aside>\n')
 
@@ -214,7 +219,7 @@ class Site:
                 + (f'<p class="desc">{rich(p["summary"])}</p>' if p.get("summary") else "") + "</header>")
 
     def page(self, body, title, desc, path="", cls=None):
-        url = self.site.get("url", "").rstrip("/"); canon = f"{url}/{path}" if url else ""
+        url = self.site.get("url", "").rstrip("/"); canon = f"{url}/{path}" if url and not self.out else ""
         t = self.theme; style = ""
         for k, v in (("--acc", t.get("accent")), ("--sans", t.get("font")), ("--mono", t.get("mono")),
                      ("--rt", f'{t["radius"]}px' if "radius" in t else None), ("--gap", f'{t["gap"]}px' if "gap" in t else None)):
@@ -266,7 +271,7 @@ class Site:
 
     def case_top(self, home):
         name = e(self.person.get("name", ""))
-        ident = f"<h1>{name}</h1>" if home else f'<a href="{self.P}"><b>{name}</b></a>'
+        ident = f"<h1>{name}</h1>" if home else f'<a href="{self.H}"><b>{name}</b></a>'
         return f'<header class="top who"><div class="who-id">{self.avatar()}<div>{ident}<p class="role">{self.role()}</p></div></div>{self.contact()}</header>'
 
     def case_home(self):
@@ -288,11 +293,11 @@ class Site:
         facts = "".join(f"<div><dt>{e(k)}</dt><dd>{e(v)}</dd></div>" for k, v in ((L["role"], p.get("role")), (L["team"], p.get("team")), (L["year"], p.get("year")), (L["for"], self.rel(p))) if v)
         nxt = self.projects[(n + 1) % len(self.projects)]
         block = lambda label, key: f'<section class="say2"><h2>{label}</h2><p>{rich(p[key])}</p></section>' if p.get(key) else ""
-        return (f'{self.case_top(False)}\n<main id="work" class="sheet"><a class="back" href="{self.P}">{e(L["all"])}</a>'
+        return (f'{self.case_top(False)}\n<main id="work" class="sheet"><a class="back" href="{self.H}">{e(L["all"])}</a>'
                 f'<header class="head"><h1>{e(p["title"])}</h1>' + (f'<p class="lead">{rich(p["summary"])}</p>' if p.get("summary") else "") + "</header>"
                 + (f'<dl class="facts">{facts}</dl>' if facts else "") + block(e(L["the_decision"]), "decision")
                 + self.rows(p, "min(100vw, 1120px)") + block(e(L["result"]), "result")
-                + (f'<a class="next" href="{self.P}{e(nxt["id"])}/"><span>{e(L["next"])}</span><b>{e(nxt["title"])} →</b></a>' if len(self.projects) > 1 else "")
+                + (f'<a class="next" href="{self.H}{e(nxt["id"])}/"><span>{e(L["next"])}</span><b>{e(nxt["title"])} →</b></a>' if len(self.projects) > 1 else "")
                 + f"</main>\n{self.footer()}")
 
     # ── checks: what the 30-second audit would still flag ─────────────────
@@ -339,22 +344,50 @@ class Site:
         full = os.path.join(self.root, rel); os.makedirs(os.path.dirname(full) or ".", exist_ok=True)
         open(full, "w", encoding="utf-8").write(text); return rel
 
-    def build(self):
+    def render(self, title, desc):
+        """Writes every page of the current layout under self.out. Returns the files written and the page paths."""
+        P = self.person; wrote, pages = [], [""]
+        self.P, self.H, self.first, self.count = self.up, "", True, 0
+        body = {"index": self.index, "columns": self.columns, "case": self.case_home}[self.layout]()
+        wrote.append(self.write(self.out + "index.html", self.page(body, title, desc)))
+        if self.layout == "case":
+            for n, p in enumerate(self.projects):
+                self.P, self.H, self.first, self.count = "../" + self.up, "../", True, 0
+                d = plain(p.get("summary") or desc)[:260]
+                wrote.append(self.write(f'{self.out}{p["id"]}/index.html', self.page(self.case_page(n, p), f'{p["title"]} — {P.get("name", "")}', d, f'{p["id"]}/')))
+                pages.append(f'{p["id"]}/')
+        self.P, self.H = self.up, ""
+        return wrote, pages
+
+    def compare(self, title, desc):
+        """The same content in all three layouts, under compare/, plus a page that links them."""
+        chosen = self.layout; said = {"index": "Who you are stays fixed on the left; work runs large on the right.",
+                                      "columns": "A short header, then every piece the same size, two across.",
+                                      "case": "A big statement, one card per project, one page to read per project."}
+        for lay in LAYOUTS:
+            self.layout, self.out, self.up = lay, f"compare/{lay}/", "../../"
+            self.render(title, desc)
+        self.layout, self.out, self.up, self.P = chosen, "", "", ""
+        self.noalt, self.images = 0, []          # counted again by the real build
+        items = "".join(f'<li><a href="{lay}/"><b>{lay}</b>' + (" <i>current</i>" if lay == chosen else "") + f"<span>{said[lay]}</span></a></li>" for lay in LAYOUTS)
+        return self.write("compare/index.html", '<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n'
+            '<meta name="robots" content="noindex">\n<title>Choose a grid</title>\n<style>\n'
+            'body { margin: 0; padding: 48px 20px; background: #0c0c0c; color: #f2f1ee; font: 16px/1.5 ui-sans-serif, system-ui, sans-serif; }\n'
+            'main { max-width: 560px; margin: 0 auto; } h1 { font-size: 24px; letter-spacing: -.02em; margin: 0 0 6px; } p { color: #a3a29d; margin: 0 0 28px; }\n'
+            'ul { list-style: none; margin: 0; padding: 0; } a { display: block; padding: 18px 20px; margin-bottom: 8px; border-radius: 16px; background: #171717; border: 1px solid rgba(255,255,255,.07); color: inherit; text-decoration: none; }\n'
+            'a:hover { background: #1f1f1f; } b { font: 600 15px ui-monospace, Menlo, monospace; } i { font: 11px ui-monospace, Menlo, monospace; text-transform: uppercase; color: #77766f; margin-left: 8px; }\n'
+            'span { display: block; color: #a3a29d; margin-top: 4px; }\n</style>\n</head>\n<body>\n<main>\n<h1>Choose a grid</h1>\n'
+            f'<p>The same content in each of the three. To keep one, set <code>"layout"</code> in portfolio.json and build again. Delete this folder before publishing.</p>\n<ul>{items}</ul>\n</main>\n</body>\n</html>\n')
+
+    def build(self, compare=False):
         P = self.person; emp = (P.get("employer") or {}).get("name")
         title = self.site.get("title") or f'{P.get("name", "")} — {P.get("role", "")}' + (f", {emp}" if emp else "") + (f' ({P["city"]})' if P.get("city") else "")
         desc = self.site.get("description") or " ".join(plain(P[k]) for k in ("headline", "proof") if P.get(k))[:260]
         os.makedirs(os.path.join(self.root, "assets"), exist_ok=True)
         for f in ("styles.css", "main.js"): shutil.copy(os.path.join(TEMPLATE, f), os.path.join(self.root, "assets", f))
-        wrote = ["assets/styles.css", "assets/main.js"]; pages = [""]
-        body = {"index": self.index, "columns": self.columns, "case": self.case_home}[self.layout]()
-        wrote.append(self.write("index.html", self.page(body, title, desc)))
-        if self.layout == "case":
-            for n, p in enumerate(self.projects):
-                self.P, self.first, self.count = "../", True, 0
-                d = plain(p.get("summary") or desc)[:260]
-                wrote.append(self.write(f'{p["id"]}/index.html', self.page(self.case_page(n, p), f'{p["title"]} — {P.get("name", "")}', d, f'{p["id"]}/')))
-                pages.append(f'{p["id"]}/')
-            self.P = ""
+        wrote = ["assets/styles.css", "assets/main.js"]
+        picker = self.compare(title, desc) if compare else None
+        w, pages = self.render(title, desc); wrote += w
         url = self.site.get("url", "").rstrip("/")
         if url:
             today = datetime.date.today().isoformat()
@@ -374,9 +407,11 @@ class Site:
             print(f"\n{len(self.slots)} slots still to fill. They are visible on the site exactly as written, so it is not ready to publish:")
             for where, slot in self.slots: print(f"  {where:<34} {slot}")
             if first: print("  Slots in the headline or proof are the first thing a visitor reads. Rewrite those lines without them until the fact is known.")
+        if picker: print(f"\nAll three grids, to choose from: {picker} (open it through a server). Delete compare/ before publishing.")
         if self.layout == "case": print("\nTo look at it: run  python3 -m http.server  in the site folder (project links need a server, not a double-click).")
 
 
 if __name__ == "__main__":
-    if len(sys.argv) != 2 or sys.argv[1] in ("-h", "--help"): sys.exit(__doc__)
-    Site(sys.argv[1]).build()
+    args = [a for a in sys.argv[1:] if a != "--compare"]
+    if len(args) != 1 or args[0] in ("-h", "--help"): sys.exit(__doc__)
+    Site(args[0]).build(compare="--compare" in sys.argv)

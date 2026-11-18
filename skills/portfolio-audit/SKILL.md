@@ -22,6 +22,11 @@ reach them.
   *for something*. If the person did not say, infer the most likely target from the first sentence of the page,
   state your assumption in the report, and carry on. Do not stop to ask.
 
+  A target is **given** only when the person named it in their own words in this conversation. "Audit my
+  portfolio" with a link gives none. Anything you worked out from the page, from an example in this skill or
+  from who the person seems to be is **assumed**, and the report says so and says from what. The whole verdict
+  hangs on the target, so a wrong one presented as theirs makes the audit look wrong from its first line.
+
 ## How to run it
 
 Paths below are relative to this skill's folder.
@@ -111,7 +116,8 @@ and write rewritten copy in the page's language too, since it is meant to be pas
 ```markdown
 # 30-second audit: [name or site]
 
-**Target:** [the role or client, and whether it was given or assumed]
+**Target:** [the role or client. Then "(given)" only if they named it themselves; otherwise "(assumed from
+[what on the page])", plus one sentence on what would change with the other likely target]
 **Verdict:** [one or two sentences. If they asked a yes/no question, answer it first. Then: would this pass
 the first filter for that target, and why]
 **Score:** [N] of 17 rules pass · [N] weak · [N] fail · [N] not checked ([N] partly)
@@ -135,16 +141,21 @@ eventually found it, if you did.)
 2. ...
 3. ...
 
-## All rules
-| # | Rule | Result | Evidence |
-|---|---|---|---|
-
 ## What already works
 [Two or three things worth keeping, so they are not lost in the next redesign.]
 
 ## Not checked
 [What you could not see, and how the person can check it themselves.]
+
+## All rules
+| # | Rule | Result | Evidence |
+|---|---|---|---|
 ```
+
+The report is read in a chat window, top down, and most people stop after the three fixes. So everything they
+need to act is above that point, and the table of all rules goes last as the record behind the verdict. Keep
+each line of evidence to one short phrase, about a dozen words: what you saw, not the argument. If a rule
+needs explaining, it is probably one of the three fixes and is already explained there.
 
 The score counts rules; the verdict predicts what a reviewer does. They can differ: a well-known name or one
 famous employer can carry a page past the filter with half the rules weak, and a tidy page can pass most rules

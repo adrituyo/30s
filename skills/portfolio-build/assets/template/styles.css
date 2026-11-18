@@ -179,6 +179,7 @@ a.t { cursor: zoom-in; }
 .dock-id span { color: var(--mut); overflow: hidden; text-overflow: ellipsis; }
 .dock .mail { flex: 0 1 auto; display: block; min-width: 0; height: 32px; line-height: 32px; padding: 0 14px; overflow: hidden; text-overflow: ellipsis; background: var(--fg); color: var(--bg); font-size: 14px; }
 .dock .mail:hover { background: var(--acc); color: var(--bg); }
+.info { padding-bottom: calc(var(--pad) + env(safe-area-inset-bottom, 0px)); }   /* the dock leaves before the last line, so nothing ends up behind it */
 @media print { .dock { display: none; } }
 
 /* ── Viewer ── */

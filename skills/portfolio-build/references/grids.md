@@ -75,7 +75,10 @@ visual work look thin; use `index`.
 2. Is the work many pieces of one kind (film, photo, motion, posters)? → `columns`
 3. Otherwise → `index`
 
-When two fit, pick by the target, not by the past: a brand designer applying for a head of design role should
+This order gives the grid to recommend. The person makes the choice: offer the three, say which you would
+pick, and let them see all of them with `build.py portfolio.json --compare` when they are unsure.
+
+When two fit, recommend by the target, not by the past: a brand designer applying for a head of design role should
 use `case`, because the role is judged on scope and decisions.
 
 ## What all three share
