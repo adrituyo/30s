@@ -4,7 +4,7 @@
 
 Key facts:
 
-- Install: `npx skills@latest add adrituyo/portfolio-skills`
+- Install: `npx skills@latest add adrituyo/30s`
 - Skills: portfolio-audit, portfolio-build
 - Rules checked: 17, grouped by the moment a reviewer meets them
 - Grids: index, columns, case
@@ -19,11 +19,11 @@ Key facts:
 
 ## Source
 
-- [Repository](https://github.com/adrituyo/portfolio-skills): the skills themselves
-- [The 17 rules in full](https://github.com/adrituyo/portfolio-skills/blob/main/skills/portfolio-audit/references/rules.md): each with why it matters, how to check it, and how to fix it
-- [Portfolio Audit instructions](https://github.com/adrituyo/portfolio-skills/blob/main/skills/portfolio-audit/SKILL.md)
-- [Portfolio Build instructions](https://github.com/adrituyo/portfolio-skills/blob/main/skills/portfolio-build/SKILL.md)
-- [The three grids](https://github.com/adrituyo/portfolio-skills/blob/main/skills/portfolio-build/references/grids.md)
+- [Repository](https://github.com/adrituyo/30s): the skills themselves
+- [The 17 rules in full](https://github.com/adrituyo/30s/blob/main/skills/portfolio-audit/references/rules.md): each with why it matters, how to check it, and how to fix it
+- [Portfolio Audit instructions](https://github.com/adrituyo/30s/blob/main/skills/portfolio-audit/SKILL.md)
+- [Portfolio Build instructions](https://github.com/adrituyo/30s/blob/main/skills/portfolio-build/SKILL.md)
+- [The three grids](https://github.com/adrituyo/30s/blob/main/skills/portfolio-build/references/grids.md)
 
 ## Optional
 

@@ -17,14 +17,14 @@ skills make yours easy to take in and easy to understand in that time.
 Install:
 
 ```
-npx skills@latest add adrituyo/portfolio-skills
+npx skills@latest add adrituyo/30s
 ```
 
 That adds the skills to the project folder you are in. If that folder is a work repository, they will show
 up there as new files. To have them in every project instead, and keep them out of any repository, add `-g`:
 
 ```
-npx skills@latest add adrituyo/portfolio-skills -g
+npx skills@latest add adrituyo/30s -g
 ```
 
 Then give your agent a URL:

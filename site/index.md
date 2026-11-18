@@ -3,8 +3,8 @@
 > Two skills for AI agents, by Owi (Head of Design at Tuyo). One audits a design portfolio the way the person hiring reads it, in a first look of about 30 seconds. The other builds a portfolio that passes that look. 17 rules, 3 grids, free and open source (MIT).
 
 - Page: https://30s.design/
-- Source: https://github.com/adrituyo/portfolio-skills
-- Install: `npx skills@latest add adrituyo/portfolio-skills`
+- Source: https://github.com/adrituyo/30s
+- Install: `npx skills@latest add adrituyo/30s`
 - Works with: agents that load skills (Claude Code and others supported by the `skills` installer)
 
 ## The 30-second theory
@@ -67,7 +67,7 @@ Grouped by the moment a reviewer meets them. None is about taste: a plain portfo
 16. **No friction.** No passwords, loaders, dead links or cursor tricks.
 17. **Always within reach.** Your name and your email stay on screen at every scroll.
 
-The full rules, each with why it matters, how to check it and how to fix it: https://github.com/adrituyo/portfolio-skills/blob/main/skills/portfolio-audit/references/rules.md
+The full rules, each with why it matters, how to check it and how to fix it: https://github.com/adrituyo/30s/blob/main/skills/portfolio-audit/references/rules.md
 
 ## Portfolio Build (`/portfolio-build`)
 
