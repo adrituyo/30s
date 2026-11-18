@@ -1,0 +1,6 @@
+portfolio-audit-workspace/
+preview/
+.DS_Store
+__pycache__/
+portfolio-build-workspace/
+skills/portfolio-audit/evals/

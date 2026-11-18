@@ -1,0 +1,161 @@
+{
+  "layout": "case",
+  "site": {
+    "url": "https://example.com",
+    "lang": "en"
+  },
+  "person": {
+    "name": "Sam Rivera",
+    "role": "Senior Product Designer",
+    "employer": {
+      "name": "Ledger Bank",
+      "url": "https://example.com"
+    },
+    "city": "Lisbon",
+    "email": "sam@example.com",
+    "headline": "I design money apps people finish setting up. **Eight years** in fintech, the last three leading the savings products at Ledger Bank.",
+    "proof": "Ledger Bank, Northwind, Kite. Set-up completion up from **41% to 63%** on my last launch.",
+    "links": [
+      {
+        "label": "LinkedIn",
+        "url": "https://www.linkedin.com/"
+      }
+    ]
+  },
+  "theme": {
+    "mode": "dark",
+    "accent": "#ffb86b",
+    "radius": 14,
+    "gap": 8
+  },
+  "authorship": "Every project says what my part was. Where a team was involved, it is named.",
+  "ask": "Hiring for a product team that ships? Write to me.",
+  "facts": [
+    [
+      "Based in",
+      "Lisbon"
+    ],
+    [
+      "Experience",
+      "8 years"
+    ],
+    [
+      "Employers",
+      "Ledger Bank, Northwind, Kite"
+    ],
+    [
+      "Focus",
+      "Onboarding and savings flows"
+    ]
+  ],
+  "projects": [
+    {
+      "id": "ledger",
+      "title": "Ledger savings flow",
+      "tags": "Product design, Mobile",
+      "summary": "Redesign of the savings set-up in a banking app: from nine screens to four.",
+      "role": "Lead designer",
+      "team": "with 2 engineers and 1 researcher",
+      "year": "2025",
+      "result": "Set-up completion went from 41% to 63% in the first month after launch.",
+      "client": "Ledger Bank",
+      "rows": [
+        {
+          "src": "images/ledger-01.svg",
+          "alt": "Ledger savings flow: main screen"
+        },
+        {
+          "note": "People dropped out when asked for a savings goal. I moved the goal to after the first deposit, because the first deposit was the moment they cared."
+        },
+        [
+          {
+            "src": "images/ledger-02.svg",
+            "alt": "Ledger savings flow: detail one"
+          },
+          {
+            "src": "images/ledger-03.svg",
+            "alt": "Ledger savings flow: detail two"
+          }
+        ],
+        {
+          "before": "images/ledger-before.svg",
+          "after": "images/ledger-after.svg",
+          "caption": "Ledger savings flow"
+        }
+      ],
+      "decision": "People dropped out when asked for a savings goal. I moved the goal to after the first deposit, because the first deposit was the moment they cared."
+    },
+    {
+      "id": "northwind",
+      "title": "Northwind design system",
+      "tags": "Design system, Web",
+      "summary": "One set of components for three products that had grown apart.",
+      "role": "Design system lead",
+      "team": "team of 4",
+      "year": "2024",
+      "result": "Adopted by all three product teams; new screens ship from existing components in days, not weeks.",
+      "client": "Northwind",
+      "rows": [
+        {
+          "src": "images/northwind-01.svg",
+          "alt": "Northwind design system: main screen"
+        },
+        {
+          "note": "We kept two button styles instead of five: every extra variant had doubled the review time for new screens."
+        },
+        [
+          {
+            "src": "images/northwind-02.svg",
+            "alt": "Northwind design system: detail one"
+          },
+          {
+            "src": "images/northwind-03.svg",
+            "alt": "Northwind design system: detail two"
+          }
+        ],
+        {
+          "before": "images/northwind-before.svg",
+          "after": "images/northwind-after.svg",
+          "caption": "Northwind design system"
+        }
+      ],
+      "decision": "We kept two button styles instead of five: every extra variant had doubled the review time for new screens."
+    },
+    {
+      "id": "kiosk",
+      "title": "Kiosk check-in",
+      "tags": "Concept, Service design",
+      "summary": "A self check-in for small clinics, designed and tested as a personal project.",
+      "role": "Designer and researcher",
+      "team": "solo",
+      "year": "2024",
+      "result": "Tested with 8 people in one clinic; all checked in without help.",
+      "relationship": "personal",
+      "rows": [
+        {
+          "src": "images/kiosk-01.svg",
+          "alt": "Kiosk check-in: main screen"
+        },
+        {
+          "note": "I dropped the touchscreen keyboard for a QR hand-off to the patient's phone after watching five people struggle with it."
+        },
+        [
+          {
+            "src": "images/kiosk-02.svg",
+            "alt": "Kiosk check-in: detail one"
+          },
+          {
+            "src": "images/kiosk-03.svg",
+            "alt": "Kiosk check-in: detail two"
+          }
+        ],
+        {
+          "before": "images/kiosk-before.svg",
+          "after": "images/kiosk-after.svg",
+          "caption": "Kiosk check-in"
+        }
+      ],
+      "decision": "I dropped the touchscreen keyboard for a QR hand-off to the patient's phone after watching five people struggle with it."
+    }
+  ]
+}
