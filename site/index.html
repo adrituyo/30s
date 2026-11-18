@@ -3,243 +3,231 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Portfolio Skills — AI skills for portfolios that get read</title>
-<meta name="description" content="Two agent skills for designers: audit your portfolio the way a reviewer reads it in 30 seconds, and build one that passes. 16 rules, 3 grids. By Owi.">
+<title>Portfolio Skills — Your portfolio gets 30 seconds</title>
+<meta name="description" content="Two skills for your AI agent, by Owi. One reads your portfolio the way the person hiring does, in 30 seconds. The other builds it to pass. 16 rules, 3 grids.">
 <link rel="canonical" href="https://theartofvisual.com/skills/">
 <link rel="icon" href="/assets/favicon.png">
 <meta property="og:url" content="https://theartofvisual.com/skills/">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://theartofvisual.com/assets/og-skills.jpg">
-<meta property="og:title" content="Portfolio Skills — AI skills for portfolios that get read">
-<meta property="og:description" content="Audit your portfolio the way a reviewer reads it in 30 seconds, and build one that passes. 16 rules, 3 grids.">
+<meta property="og:title" content="Portfolio Skills — Your portfolio gets 30 seconds">
+<meta property="og:description" content="Two skills for your AI agent. One reads your portfolio like the person hiring, in 30 seconds. The other builds it to pass.">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0b0b0b">
 <script>try { if (localStorage.getItem('theme') === 'light') document.documentElement.dataset.theme = 'light'; } catch (e) {}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..600&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400..600&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>
+/* This page is laid out on the "index" grid it describes: what it is stays on the left, the content runs on the right. */
 :root {
-  --bg: #111110; --fg: #fff; --mut: #b5b3ad; --dim: #6f6d66; --line: rgba(255, 255, 255, .08);
-  --card: #141414; --card-h: #171717; --well-a: #1a1a17; --well-b: #0b0b0a; --active: #2a2a28; --code: #1a1a18;
-  --acc: #00e6a0; --acc-ink: #00130c; --ring: rgba(255, 255, 255, .08);
-  --sans: Inter, ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
-  --mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
-  --side: 260px; --ease: cubic-bezier(.23, 1, .32, 1);
+  --bg: #0b0b0b; --panel: #141414; --card: #171717; --fg: #f2f1ee; --mut: #a09f9a; --dim: #74736f;
+  --line: rgba(255, 255, 255, .1); --edge: rgba(255, 255, 255, .07); --tint: rgba(255, 255, 255, .07); --tint2: rgba(255, 255, 255, .13);
+  --under: rgba(255, 255, 255, .3); --acc: #00ffb2; --acc-ink: #00130c;
+  --r: 22px; --rt: 14px; --gap: 8px; --pad: 16px; --aside: 368px;
+  --sans: "Instrument Sans", ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --ease: cubic-bezier(.2, .7, .2, 1);
   color-scheme: dark;
 }
 :root[data-theme="light"] {
-  --bg: #f7f7f5; --fg: #111110; --mut: #55534e; --dim: #8a8880; --line: rgba(0, 0, 0, .09);
-  --card: #fff; --card-h: #fff; --well-a: #2a2a26; --well-b: #1b1b18; --active: #e9e8e4; --code: #eeede9;
-  --acc: #008f63; --acc-ink: #fff; --ring: rgba(0, 0, 0, .08);
+  --bg: #f2f1ed; --panel: #e6e5e0; --card: #fbfaf8; --fg: #111110; --mut: #5c5b57; --dim: #76756f;
+  --line: rgba(0, 0, 0, .11); --edge: rgba(0, 0, 0, .07); --tint: rgba(0, 0, 0, .055); --tint2: rgba(0, 0, 0, .1);
+  --under: rgba(0, 0, 0, .3); --acc: #008f5d; --acc-ink: #fff;
   color-scheme: light;
 }
 *, *::before, *::after { box-sizing: border-box; }
-html { background: var(--bg); scroll-behavior: smooth; scroll-padding-top: 76px; -webkit-text-size-adjust: 100%; }
-body { margin: 0; overflow-x: clip; background: var(--bg); color: var(--fg); font: 400 16px/1.5 var(--sans); -webkit-font-smoothing: antialiased; }
-h1, h2, h3, h4, p, ol, ul, pre { margin: 0; padding: 0; font: inherit; }
+html { background: var(--bg); scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body { margin: 0; padding: 0 var(--pad); background: var(--bg); color: var(--fg); font: 400 15px/1.5 var(--sans); letter-spacing: .005em; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; display: grid; grid-template-columns: var(--aside) minmax(0, 1fr); gap: var(--pad); }
+h1, h2, h3, p, ol, ul, pre, figure { margin: 0; padding: 0; font: inherit; }
 ol, ul { list-style: none; }
 a { color: inherit; text-decoration: none; }
 button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
-:focus-visible { outline: 2px solid var(--acc); outline-offset: 2px; border-radius: 6px; }
-.mono { font-family: var(--mono); font-size: 12px; letter-spacing: .01em; color: var(--dim); }
+::selection { background: #00ffb2; color: #000; }
+:focus-visible { outline: 1.5px solid var(--acc); outline-offset: 3px; border-radius: 2px; }
+.num, .label, .tags, .ct, .fine, .seg b, .say, .cmd { font-family: var(--mono); }
+.num, .label, .tags, .ct, .fine, .seg b { font-size: 11px; line-height: 1.5; letter-spacing: .02em; text-transform: uppercase; }
+.label { color: var(--dim); margin-bottom: 10px; }
+.u { color: var(--fg); border-bottom: 1px solid var(--under); transition: border-color .2s; }
+.u:hover { border-bottom-color: var(--fg); }
 
-/* ── Top bar ── */
-.bar { position: fixed; inset: 0 0 auto 0; height: 60px; z-index: 10; display: flex; align-items: center; gap: 10px; padding: 0 20px 0 14px; background: color-mix(in srgb, var(--bg) 86%, transparent); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
-.logo { width: 32px; height: 32px; border-radius: 8px; display: grid; place-items: center; background: var(--fg); color: var(--bg); font: 600 12px/1 var(--mono); letter-spacing: -.04em; }
-.bar .name { font-size: 14px; font-weight: 550; letter-spacing: -.01em; margin-left: 2px; }
-.bar .sp { flex: 1; }
-.ib { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; color: var(--mut); box-shadow: 0 0 0 1px var(--ring); transition: color .2s, background .2s; }
-.ib:hover { color: var(--fg); background: var(--active); }
-.ghost { height: 34px; padding: 0 14px; border-radius: 100px; display: inline-flex; align-items: center; font-size: 14px; color: var(--mut); box-shadow: 0 0 0 1px var(--ring); transition: color .2s, background .2s; }
-.ghost:hover { color: var(--fg); background: var(--active); }
-.cta { height: 34px; padding: 0 16px; border-radius: 100px; display: inline-flex; align-items: center; font-size: 14px; font-weight: 550; background: var(--acc); color: var(--acc-ink); transition: filter .2s; }
-.cta:hover { filter: brightness(1.08); }
-.menu { display: none; }
+/* ── Left: what this is, how to get it, and where things are ── */
+.intro { position: sticky; top: 0; align-self: start; height: 100vh; height: 100dvh; padding: var(--pad) 0; display: flex; flex-direction: column; gap: var(--gap); overflow-y: auto; scrollbar-width: none; }
+.intro::-webkit-scrollbar { display: none; }
+.card { background: var(--card); border: 1px solid var(--edge); border-radius: var(--r); padding: 24px; }
+.me { position: relative; }
+.mark { width: 64px; height: 64px; border-radius: 50%; display: grid; place-items: center; margin-bottom: 18px; background: var(--fg); color: var(--bg); font: 500 17px/1 var(--mono); letter-spacing: -.06em; }
+.me h1 { font-weight: 600; font-size: 21px; letter-spacing: -.02em; line-height: 1.15; }
+.me .role { color: var(--mut); margin: 6px 0 20px; }
+.bio { color: var(--mut); display: flex; flex-direction: column; gap: 14px; text-wrap: pretty; }
+.bio b { color: var(--fg); font-weight: 500; }
+.cmd { margin-top: 22px; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 10px; padding: 12px 8px 12px 14px; border-radius: var(--rt); background: var(--tint); font-size: 12px; line-height: 1.5; }
+.cmd code { font: inherit; overflow-wrap: anywhere; }
+.cmd code i { font-style: normal; color: var(--dim); }
+.cmd button { align-self: start; height: 28px; padding: 0 10px; border-radius: 100px; font: 11px var(--mono); text-transform: uppercase; letter-spacing: .02em; color: var(--mut); background: var(--tint); transition: background .2s, color .2s; }
+.cmd button:hover { background: var(--tint2); color: var(--fg); }
+.contact { margin-top: 10px; display: flex; gap: 8px; }
+.pill { display: inline-flex; align-items: center; height: 38px; padding: 0 16px; border-radius: 100px; background: var(--tint); color: var(--mut); transition: background .2s, color .2s; }
+.pill:hover { background: var(--tint2); color: var(--fg); }
+.pill.go { background: var(--acc); color: var(--acc-ink); font-weight: 500; }
+.pill.go:hover { background: var(--acc); color: var(--acc-ink); filter: brightness(1.08); }
+.theme { position: absolute; top: 24px; right: 24px; display: flex; gap: 2px; padding: 3px; border-radius: 100px; background: var(--tint); }
+.theme button { width: 32px; height: 28px; border-radius: 100px; display: grid; place-items: center; color: var(--dim); transition: color .2s; }
+.theme button:hover { color: var(--fg); }
+.theme button[aria-pressed="true"] { background: var(--tint2); color: var(--fg); }
+:root[data-theme="light"] .theme button[aria-pressed="true"] { background: var(--card); box-shadow: 0 0 0 1px var(--edge), 0 1px 2px rgba(0, 0, 0, .12); }
+.card.nav { padding: 18px 24px 16px; }
+.index a { display: grid; grid-template-columns: 30px 1fr auto; align-items: baseline; padding: 4px 0; font-size: 14px; color: var(--mut); border-top: 1px solid var(--line); transition: color .2s, padding .3s var(--ease); }
+.index li:last-child a { border-bottom: 1px solid var(--line); }
+.index .num, .index .ct { color: var(--dim); }
+.index a:hover, .index a.on { color: var(--fg); }
+.index a.on { padding-left: 8px; }
+.index a.on .num { color: var(--acc); }
 
-/* ── Sidebar ── */
-.side { position: fixed; top: 60px; bottom: 0; left: 0; width: var(--side); padding: 12px 24px 24px 12px; overflow-y: auto; scrollbar-width: thin; }
-.side p { font-size: 12px; color: var(--dim); padding: 0 8px; margin: 18px 0 6px; }
-.side p:first-child { margin-top: 4px; }
-.side a { display: flex; align-items: center; height: 32px; padding: 0 8px; border-radius: 6px; font-size: 14px; color: var(--mut); transition: color .15s, background .15s; }
-.side a:hover { color: var(--fg); }
-.side a.on { color: var(--fg); background: var(--active); }
+/* ── Right ── */
+main { padding: var(--pad) 0 0; min-width: 0; }
+.sec { padding-bottom: 88px; }
+.wh { display: grid; grid-template-columns: 30px minmax(0, 1fr) minmax(0, 1.4fr) auto; column-gap: 16px; align-items: baseline; padding: 14px 0; border-top: 1px solid var(--line); }
+.wh .num { color: var(--dim); }
+.wh h2 { font-weight: 600; letter-spacing: -.005em; }
+.wh .desc { color: var(--mut); grid-column: 3; max-width: 50ch; text-wrap: pretty; }
+.wh .tags { color: var(--dim); grid-column: 4; text-align: right; }
 
-/* ── Page ── */
-main { margin-left: var(--side); border-left: 1px solid var(--line); min-height: 100vh; padding: 60px 0 0; }
-.wrap { max-width: 984px; margin: 0 auto; padding: 0 32px; }
-.hero { position: relative; padding: 104px 0 88px; overflow: hidden; }
-.hero .wrap { position: relative; }
-.hero h1 { font-size: 48px; line-height: 52px; font-weight: 575; letter-spacing: -.03em; max-width: 13ch; margin-top: 14px; text-wrap: balance; }
-.hero .sub { margin-top: 20px; font-size: 18px; color: var(--mut); max-width: 44ch; text-wrap: pretty; }
-.cmd { margin-top: 28px; display: flex; align-items: center; gap: 12px; width: min(100%, 560px); height: 44px; padding: 0 6px 0 16px; border-radius: 10px; background: var(--code); box-shadow: 0 0 0 1px var(--ring); font: 13px var(--mono); }
-.cmd i { color: var(--dim); font-style: normal; }
-.cmd code { flex: 1; font: inherit; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.cmd button { height: 32px; padding: 0 10px; border-radius: 6px; font: 12px var(--mono); color: var(--dim); transition: color .15s, background .15s; }
-.cmd button:hover { color: var(--fg); background: var(--active); }
-.stats { display: flex; gap: 44px; margin-top: 36px; }
-.stats b { display: block; font-size: 24px; font-weight: 575; letter-spacing: -.025em; line-height: 1.2; }
+/* The opening: the claim, and the 30 seconds drawn to scale */
+.claim { padding: 20px 0 44px; font-size: clamp(40px, 6.6vw, 104px); line-height: .96; font-weight: 500; letter-spacing: -.05em; text-wrap: balance; }
+.claim em { font-style: normal; color: var(--acc); font-variant-numeric: tabular-nums; }
+.clock { display: flex; gap: var(--gap); }
+.seg { position: relative; flex: var(--s) 1 0%; min-width: 0; min-height: 232px; padding: 16px; border-radius: var(--rt); background: var(--panel); display: flex; flex-direction: column; overflow: hidden; isolation: isolate; }
+.seg b { font-weight: 400; color: var(--dim); transition: color .3s; }
+.seg h3 { margin-top: auto; font-size: 17px; font-weight: 600; letter-spacing: -.015em; line-height: 1.2; }
+.seg p { margin-top: 6px; color: var(--mut); font-size: 14px; line-height: 1.4; text-wrap: pretty; }
+.seg .r { margin-top: 12px; font: 11px/1.5 var(--mono); letter-spacing: .02em; text-transform: uppercase; color: var(--dim); }
+.seg.exit { background: none; box-shadow: inset 0 0 0 1px var(--line); }
+.seg::after { content: ""; position: absolute; z-index: -1; inset: 0 auto 0 0; width: calc(var(--p, 0) * 100%); background: var(--tint); pointer-events: none; }
+.seg.now b { color: var(--acc); }
+.hand { display: flex; justify-content: space-between; padding: 10px 2px 0; color: var(--dim); }
+.hand span:first-child { color: var(--fg); font-variant-numeric: tabular-nums; }
 
-/* The stream of things you can type, fading on the right of the hero */
-.stream { position: absolute; top: 0; bottom: 0; right: 0; width: 56%; pointer-events: none; overflow: hidden; -webkit-mask-image: linear-gradient(to right, transparent, #000 55%), linear-gradient(to bottom, transparent, #000 22%, #000 78%, transparent); -webkit-mask-composite: source-in; mask-image: linear-gradient(to right, transparent, #000 55%), linear-gradient(to bottom, transparent, #000 22%, #000 78%, transparent); mask-composite: intersect; opacity: .5; }
-.stream ol { animation: up 48s linear infinite; }
-.stream li { display: flex; justify-content: flex-end; gap: 10px; padding: 12px 32px 12px 0; font: 12px var(--mono); color: var(--dim); white-space: nowrap; }
-.stream li b { font-weight: 400; color: var(--acc); }
-@keyframes up { to { transform: translateY(-50%); } }
-
-.sec { padding: 0 0 72px; }
-.sec > .wrap > h2 { font-size: 22px; line-height: 33px; font-weight: 575; letter-spacing: -.025em; }
-.sec > .wrap > h2 span { color: var(--dim); font-weight: 400; }
-.lede { margin-top: 6px; font-size: 17px; color: var(--mut); max-width: 60ch; text-wrap: pretty; }
-
-/* ── A phase: the number and the words on the left, the cards on the right ── */
-.phase { display: grid; grid-template-columns: minmax(0, 360px) minmax(0, 1fr); gap: 32px; padding: 40px 0; margin-top: 36px; border-top: 1px solid var(--line); }
-.phase + .phase { margin-top: 0; }
-.phase h3 { font-size: 24px; line-height: 36px; font-weight: 575; letter-spacing: -.025em; margin-top: 10px; }
-.phase .txt p { margin-top: 6px; color: var(--mut); max-width: 34ch; text-wrap: pretty; }
-.cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
-.cardk { display: flex; flex-direction: column; padding: 8px; border-radius: 20px; background: var(--card); box-shadow: 0 0 0 1px var(--ring); transition: background .2s var(--ease), box-shadow .2s var(--ease); }
-.cardk:hover { background: var(--card-h); box-shadow: 0 0 0 1px var(--ring), 0 8px 24px rgba(0, 0, 0, .12); }
-.well { aspect-ratio: 16 / 10; border-radius: 13px; display: grid; place-items: center; overflow: hidden; background: radial-gradient(120% 100% at 50% 0%, var(--well-a), var(--well-b) 70%); box-shadow: inset 0 1px 8px rgba(0, 0, 0, .8); color: var(--acc); }
-.well svg { width: 46%; height: auto; filter: drop-shadow(0 0 10px color-mix(in srgb, var(--acc) 55%, transparent)); }
-.cardk h4 { font-size: 15px; font-weight: 575; letter-spacing: -.01em; padding: 14px 8px 0; }
-.cardk p { font-size: 14px; line-height: 1.45; color: var(--mut); padding: 4px 8px 12px; text-wrap: pretty; }
-
-/* ── Detail sections ── */
-.detail { padding: 72px 0; border-top: 1px solid var(--line); }
-.detail .kicker { display: block; margin-bottom: 10px; }
-.detail h2 { font-size: 32px; line-height: 1.15; font-weight: 575; letter-spacing: -.03em; }
+.two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gap); }
 .two > * { min-width: 0; }
-.two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; margin-top: 32px; }
-.box { border-radius: 16px; background: var(--card); box-shadow: 0 0 0 1px var(--ring); padding: 20px; }
-.box h3 { font-size: 15px; font-weight: 575; margin-bottom: 10px; }
-.box li, .box p { font-size: 14px; color: var(--mut); }
-.box li { display: grid; grid-template-columns: 22px 1fr; padding: 7px 0; border-top: 1px solid var(--line); }
-.box li:first-child { border-top: 0; }
-.box li i { font: 12px/1.75 var(--mono); font-style: normal; color: var(--dim); }
-.say { font: 13px/1.7 var(--mono); color: var(--mut); background: var(--code); border-radius: 10px; padding: 14px 16px; box-shadow: 0 0 0 1px var(--ring); overflow-x: auto; white-space: pre; }
+.box { border-radius: var(--rt); background: var(--panel); padding: 20px; }
+.box li { display: grid; grid-template-columns: 30px 1fr; padding: 8px 0; border-top: 1px solid var(--line); color: var(--mut); }
+.box li:first-child { border-top: 0; padding-top: 0; }
+.box li .num { color: var(--dim); padding-top: 3px; }
+.say { border-radius: var(--rt); background: var(--panel); padding: 20px; font-size: 12.500px; line-height: 1.75; color: var(--mut); overflow-x: auto; white-space: pre; }
 .say b { color: var(--fg); font-weight: 400; } .say em { color: var(--acc); font-style: normal; } .say s { color: var(--dim); text-decoration: none; }
-.rules { margin-top: 32px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 32px; }
-.rules section { padding: 18px 0; border-top: 1px solid var(--line); }
-.rules h3 { font: 12px var(--mono); color: var(--dim); margin-bottom: 8px; }
-.rules li { display: grid; grid-template-columns: 30px 1fr; padding: 5px 0; font-size: 15px; }
-.rules li i { font: 12px/1.9 var(--mono); font-style: normal; color: var(--dim); }
-.rules li span { color: var(--mut); display: block; font-size: 14px; }
-.grids { margin-top: 32px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
-.grids .cardk p + p { padding-top: 0; color: var(--dim); }
-.foot { padding: 40px 0 56px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; font-size: 14px; color: var(--dim); }
-.foot a { color: var(--mut); border-bottom: 1px solid var(--line); }
-.foot a:hover { color: var(--fg); }
+.after { margin-top: 20px; padding-left: 46px; color: var(--mut); max-width: 64ch; text-wrap: pretty; }
+.after code { font: 12px var(--mono); color: var(--fg); background: var(--tint); padding: 2px 6px; border-radius: 6px; }
 
-@media (max-width: 1100px) {
-  .phase { grid-template-columns: 1fr; gap: 20px; }
-  .phase .txt p { max-width: 56ch; }
+.rules { columns: 2; column-gap: var(--pad); }
+.rules li { break-inside: avoid; display: grid; grid-template-columns: 30px minmax(0, 1fr); padding: 9px 0; border-top: 1px solid var(--line); }
+.rules .num { color: var(--dim); padding-top: 3px; }
+.rules span { display: block; color: var(--mut); font-size: 14px; }
+.rules .when { display: block; border-top: 0; padding: 26px 0 8px 30px; margin: 0; color: var(--dim); break-after: avoid; }
+.rules .when:first-child { padding-top: 4px; }
+
+.grids { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--gap); }
+.g figure { aspect-ratio: 4 / 3; border-radius: var(--rt); background: var(--panel); display: grid; place-items: center; color: var(--dim); }
+.g svg { width: 62%; height: auto; }
+.g svg .you { color: var(--acc); }
+.g h3 { padding: 12px 2px 0; font-weight: 600; }
+.g h3 span { font: 11px var(--mono); letter-spacing: .02em; text-transform: uppercase; color: var(--dim); margin-left: 8px; font-weight: 400; }
+.g p { padding: 2px 2px 0; color: var(--mut); font-size: 14px; text-wrap: pretty; }
+.g .for { color: var(--dim); }
+
+.ask-list li { display: grid; grid-template-columns: 30px minmax(0, 1fr) auto; gap: 0 16px; align-items: baseline; padding: 8px 0; border-top: 1px solid var(--line); }
+.ask-list li:last-child { border-bottom: 1px solid var(--line); }
+.ask-list .num { color: var(--dim); }
+.ask-list .ct { color: var(--acc); text-transform: none; }
+
+.end { border-top: 1px solid var(--line); padding: 14px 0 var(--pad); }
+.ask { margin: 96px 0 0; color: var(--mut); font-size: 17px; letter-spacing: -.01em; }
+.big { display: block; width: fit-content; margin: 14px 0 72px; font-size: clamp(30px, 5.6vw, 84px); line-height: 1; font-weight: 500; letter-spacing: -.045em; transition: color .25s; }
+.big:hover { color: var(--acc); }
+.fine { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; color: var(--dim); }
+.fine a { color: var(--mut); } .fine a:hover { color: var(--fg); }
+
+@media (max-width: 1180px) and (min-width: 901px) {
+  :root { --aside: 300px; }
+  .card { padding: 20px; } .theme { top: 20px; right: 20px; }
+  .wh { grid-template-columns: 30px minmax(0, 1fr) auto; }
+  .wh .desc { grid-column: 2; margin-top: 6px; }
+  .wh .tags { grid-column: 3; grid-row: 1; }
+  .seg { min-height: 260px; padding: 14px; }
 }
-@media (max-width: 860px) {
-  .menu { display: grid; }
-  .side { transform: translateX(-100%); transition: transform .3s var(--ease); background: var(--bg); z-index: 9; border-right: 1px solid var(--line); width: min(84vw, 300px); }
-  .open .side { transform: none; }
-  main { margin-left: 0; border-left: 0; }
-  .wrap { padding: 0 16px; }
-  .bar { padding: 0 12px; }
-  .bar .name, .ghost { display: none; }
-  .hero { padding: 40px 0 48px; display: flex; flex-direction: column; }
-  .hero .wrap { width: 100%; min-width: 0; }
-  .hero h1 { font-size: 36px; line-height: 40px; }
-  .hero .sub { font-size: 17px; }
-  .stream { position: relative; order: 2; width: 100%; min-width: 0; max-width: 100vw; height: 132px; margin: 36px 0 0; opacity: .7; -webkit-mask-image: linear-gradient(to bottom, transparent, #000 30%, #000 70%, transparent); mask-image: linear-gradient(to bottom, transparent, #000 30%, #000 70%, transparent); }
-  .stream li { justify-content: flex-start; padding: 8px 16px; }
-  .stats { gap: 24px; }
-  .stats span { display: block; max-width: 11ch; }
-  .cmd { width: 100%; }
-  .two, .rules, .grids { grid-template-columns: 1fr; }
-  .detail { padding: 56px 0; }
-  .detail h2 { font-size: 28px; }
+@media (max-width: 900px) {
+  :root { --gap: 6px; --r: 20px; --rt: 10px; }
+  body { display: block; }
+  .intro { position: static; height: auto; padding: 12px 0 20px; overflow: visible; }
+  .card.nav { display: none; }
+  .sec { padding-bottom: 64px; }
+  .wh { grid-template-columns: 30px minmax(0, 1fr); row-gap: 2px; }
+  .wh .desc, .wh .tags { grid-column: 2; text-align: left; }
+  .wh .tags { margin-top: 6px; }
+  .claim { padding: 12px 0 28px; }
+  .clock { flex-direction: column; }
+  .seg { min-height: 0; flex: none; padding: 14px 16px 16px; }
+  .seg h3 { margin-top: 10px; }
+  .seg::after { inset: 0 0 auto 0; width: 100%; height: calc(var(--p, 0) * 100%); }
+  .two, .grids { grid-template-columns: 1fr; }
+  .rules { columns: 1; }
+  .grids { gap: 24px; }
+  .after { padding-left: 0; }
+  .ask-list li { grid-template-columns: 30px minmax(0, 1fr); }
+  .ask-list .ct { grid-column: 2; }
+  .ask { margin-top: 64px; font-size: 16px; }
+  .big { margin-bottom: 48px; }
 }
-@media (max-width: 520px) { .cards { grid-template-columns: 1fr; } .well { aspect-ratio: 16 / 7; } .well svg { width: 26%; } }
+@media (min-width: 1800px) { :root { --aside: 410px; } }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation: none !important; transition: none !important; } }
 </style>
 </head>
 <body>
 
-<header class="bar">
-  <button class="ib menu" aria-label="Menu" aria-expanded="false"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 5h12M2 11h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
-  <a class="logo" href="#top" aria-label="Portfolio Skills">30s</a>
-  <span class="name">Portfolio Skills</span>
-  <span class="sp"></span>
-  <button class="ib" id="theme" aria-label="Switch between light and dark"><svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.4" fill="currentColor"/><path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M12 2.500v2M12 19.500v2M2.500 12h2M19.500 12h2M5.300 5.300l1.400 1.400M17.300 17.300l1.400 1.400M5.300 18.700l1.400-1.400M17.300 6.700l1.400-1.400"/></svg></button>
-  <a class="ghost" href="https://github.com/adrituyo/portfolio-skills" data-repo>GitHub</a>
-  <a class="cta" href="#install">Install</a>
-</header>
-
-<nav class="side" aria-label="Sections">
-  <p>Get started</p>
-  <a href="#top" class="on">Overview</a>
-  <p>Find out where you stand</p>
-  <a href="#audit">Portfolio Audit</a>
-  <a href="#rules">The 16 rules</a>
-  <p>Build it</p>
-  <a href="#build">Portfolio Build</a>
-  <p>Pick a grid</p>
-  <a href="#grid-index">Index</a>
-  <a href="#grid-columns">Columns</a>
-  <a href="#grid-case">Case</a>
-</nav>
-
-<main id="top">
-  <section class="hero">
-    <div class="stream" aria-hidden="true"><ol id="stream"></ol></div>
-    <div class="wrap">
-      <p class="mono">Last updated November 18, 2026</p>
-      <h1>AI Skills for Portfolios That Get Read</h1>
-      <p class="sub">By Owi, for designers whose portfolio gets 30 seconds. After 15 years in digital product, I can tell you that is about what the first look lasts.</p>
-      <div class="cmd" id="install"><i>$</i><code>npx skills@latest add adrituyo/portfolio-skills</code><button type="button" data-copy="npx skills@latest add adrituyo/portfolio-skills">[copy]</button></div>
-      <div class="stats">
-        <div><b>30 s</b><span class="mono">The first look</span></div>
-        <div><b>16</b><span class="mono">Rules checked</span></div>
-        <div><b>3</b><span class="mono">Grids to build with</span></div>
-      </div>
+<aside class="intro" aria-label="About these skills">
+  <div class="card me">
+    <div class="theme" role="group" aria-label="Theme"><button type="button" data-theme-set="dark" aria-pressed="true" aria-label="Dark mode"><svg viewBox="0 0 24 24" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M20.400 14.600A8.600 8.600 0 0 1 9.400 3.600a.7.7 0 0 0-.9-.9A9.900 9.900 0 1 0 21.300 15.500a.7.7 0 0 0-.9-.9z"/></svg></button><button type="button" data-theme-set="light" aria-pressed="false" aria-label="Light mode"><svg viewBox="0 0 24 24" width="13" height="13" aria-hidden="true"><circle cx="12" cy="12" r="4.400" fill="currentColor"/><path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M12 2.500v2M12 19.500v2M2.500 12h2M19.500 12h2M5.300 5.300l1.400 1.400M17.300 17.300l1.400 1.400M5.300 18.700l1.400-1.400M17.300 6.700l1.400-1.400"/></svg></button></div>
+    <div class="mark" aria-hidden="true">30s</div>
+    <h1>Portfolio Skills</h1>
+    <p class="role">Two skills for your AI agent, by <a class="u" href="https://theartofvisual.com">Owi</a>.</p>
+    <div class="bio">
+      <p>After <b>15 years</b> in digital product, I can tell you the first look at a portfolio lasts about <b>30 seconds</b>.</p>
+      <p>One skill reads yours the way the person hiring does. The other builds it to pass.</p>
     </div>
+    <div class="cmd" id="install"><code><i>$</i> npx skills@latest add adrituyo/portfolio-skills</code><button type="button" data-copy="npx skills@latest add adrituyo/portfolio-skills">Copy</button></div>
+    <div class="contact"><a class="pill go" href="https://github.com/adrituyo/portfolio-skills">GitHub</a><a class="pill" href="#say">What to say</a></div>
+  </div>
+  <div class="card nav">
+    <nav class="index" aria-label="Index">
+      <p class="label">Index</p>
+      <ol>
+        <li><a href="#first-look"><span class="num">01</span><span>The first look</span><span class="ct">30 s</span></a></li>
+        <li><a href="#audit"><span class="num">02</span><span>Portfolio Audit</span><span class="ct">Skill</span></a></li>
+        <li><a href="#rules"><span class="num">03</span><span>What it checks</span><span class="ct">16</span></a></li>
+        <li><a href="#build"><span class="num">04</span><span>Portfolio Build</span><span class="ct">Skill</span></a></li>
+        <li><a href="#grids"><span class="num">05</span><span>The grids</span><span class="ct">3</span></a></li>
+        <li><a href="#say"><span class="num">06</span><span>What to say</span><span class="ct">8</span></a></li>
+      </ol>
+    </nav>
+  </div>
+</aside>
+
+<main>
+  <section class="sec" id="first-look">
+    <p class="claim">Your portfolio gets <em id="count">30</em> seconds.</p>
+    <div class="clock" id="clock">
+      <div class="seg" style="--s:5" data-from="0" data-to="5"><b>0–5 s</b><h3>First screen</h3><p>Who you are, what you do, at what level.</p><p class="r">Rules 01–03</p></div>
+      <div class="seg" style="--s:10" data-from="5" data-to="15"><b>5–15 s</b><h3>The scan</h3><p>Real work, the best of it first, and what kind of work it is.</p><p class="r">Rules 04–06</p></div>
+      <div class="seg" style="--s:15" data-from="15" data-to="30"><b>15–30 s</b><h3>One project</h3><p>What your part was, one thing you decided, and what changed because of it.</p><p class="r">Rules 07–09</p></div>
+      <div class="seg exit" style="--s:6"><b>Then</b><h3>They leave, or they write</h3><p class="r">Rules 10–11</p></div>
+    </div>
+    <p class="hand fine"><span id="hand">0:00</span><span>How long a reviewer would have been on your page by now</span></p>
   </section>
 
-  <section class="sec">
-    <div class="wrap">
-      <h2>Available skills <span>2</span></h2>
-      <p class="lede">Ordered the way you would reach for them: look at what you have, then build what is missing.</p>
-
-      <div class="phase">
-        <div class="txt"><span class="mono">01</span><h3>Find out where you stand</h3><p>See your portfolio the way a stranger does, before you change anything.</p></div>
-        <div class="cards">
-          <a class="cardk" href="#audit"><span class="well"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="26" r="15"/><path d="M24 17v9l6 4M19 5h10M24 5v6"/></svg></span><h4>Portfolio Audit</h4><p>What a reviewer understands in 30 seconds, and the three fixes that matter most.</p></a>
-          <a class="cardk" href="#rules"><span class="well"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 13l3 3 5-6M9 25l3 3 5-6M9 37l3 3 5-6M24 13h15M24 25h15M24 37h15"/></svg></span><h4>The 16 rules</h4><p>What the audit checks, each with its reason and its fix.</p></a>
-        </div>
-      </div>
-
-      <div class="phase">
-        <div class="txt"><span class="mono">02</span><h3>Build it</h3><p>One content file in, a finished site out. The structure is fixed; the look stays yours.</p></div>
-        <div class="cards">
-          <a class="cardk" href="#build"><span class="well"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="9" width="36" height="30" rx="4"/><path d="M6 17h36M16 26l-4 4 4 4M24 34l4-10M32 26l4 4-4 4"/></svg></span><h4>Portfolio Build</h4><p>Builds your portfolio from your projects and tells you what an audit would still flag.</p></a>
-        </div>
-      </div>
-
-      <div class="phase">
-        <div class="txt"><span class="mono">03</span><h3>Pick a grid</h3><p>Three page structures that pass the test. Choose by the kind of work, switch with one word.</p></div>
-        <div class="cards">
-          <a class="cardk" href="#grid-index"><span class="well"><svg viewBox="0 0 48 34" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="13" height="18" rx="2.500"/><rect x="2" y="23" width="13" height="9" rx="2.500"/><rect x="19" y="2" width="12.500" height="13" rx="2.500"/><rect x="34" y="2" width="12" height="13" rx="2.500"/><rect x="19" y="18" width="27" height="14" rx="2.500"/></svg></span><h4>Index</h4><p>You stay on the left; the work runs large on the right.</p></a>
-          <a class="cardk" href="#grid-columns"><span class="well"><svg viewBox="0 0 48 34" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4h18M34 4h12" stroke-linecap="round"/><rect x="2" y="9" width="20.500" height="10" rx="2.500"/><rect x="25.500" y="9" width="20.500" height="10" rx="2.500"/><rect x="2" y="22" width="20.500" height="10" rx="2.500"/><rect x="25.500" y="22" width="20.500" height="10" rx="2.500"/></svg></span><h4>Columns</h4><p>Every piece the same size, two across.</p></a>
-          <a class="cardk" href="#grid-case"><span class="well"><svg viewBox="0 0 48 34" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 4h22M8 8.500h14" stroke-linecap="round"/><rect x="8" y="13" width="32" height="12" rx="2.500"/><path d="M8 29.500h10M24 29.500h16" stroke-linecap="round"/></svg></span><h4>Case</h4><p>A statement, then one project per page with role, decision and result.</p></a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="detail" id="audit">
-    <div class="wrap">
-      <span class="mono kicker">/portfolio-audit</span>
-      <h2>Portfolio Audit</h2>
-      <p class="lede">Give it a link and say what you are aiming for. It walks the page like a reviewer with forty tabs open: five seconds on the first screen, ten scanning, fifteen on one project. Then it tells you what got through.</p>
-      <div class="two">
-        <div>
-          <pre class="say"><s>&gt;</s> <b>audit my portfolio https://yourname.com,</b>
+  <section class="sec" id="audit">
+    <header class="wh"><span class="num">02</span><h2>Portfolio Audit</h2><p class="desc">Give it a link and say what you are aiming for. It walks your page the way a reviewer with forty tabs open does, and tells you what got through.</p><p class="tags">/portfolio-audit</p></header>
+    <div class="two">
+<pre class="say"><s>&gt;</s> <b>audit my portfolio https://yourname.com,</b>
   <b>I'm applying for senior product roles</b>
 
 <em>Verdict</em>  Passes on the first screen, loses it
@@ -250,110 +238,95 @@ main { margin-left: var(--side); border-left: 1px solid var(--line); min-height:
 <em>Fix 1</em>    Put the work you led first
 <em>Fix 2</em>    One line per project: role, year, for whom
 <em>Fix 3</em>    Move the proof from About to the top</pre>
-        </div>
-        <div class="box">
-          <h3>What you get back</h3>
-          <ul>
-            <li><i>1</i><span>What a stranger understands in 30 seconds: who, what, at what level, for whom, your part, how to reach you.</span></li>
-            <li><i>2</i><span>The three fixes that matter most, with the copy rewritten for you.</span></li>
-            <li><i>3</i><span>All 16 rules marked pass, weak or fail, with the evidence from your page.</span></li>
-            <li><i>4</i><span>What already works, so you do not lose it in the next redesign.</span></li>
-            <li><i>5</i><span>What it could not check, and how to check it yourself.</span></li>
-          </ul>
-        </div>
-      </div>
-      <p class="lede" style="margin-top:28px">It never invents a fact about you. When a better headline needs a number it does not have, it leaves a slot: <span class="mono" style="font-size:14px;color:var(--mut)">[N] years</span>, <span class="mono" style="font-size:14px;color:var(--mut)">[team size]</span>.</p>
+      <ul class="box">
+        <li><span class="num">A</span><span>What a stranger understands in 30 seconds: who, what, at what level, for whom, your part, how to reach you.</span></li>
+        <li><span class="num">B</span><span>The three fixes that matter most, with the copy rewritten for you.</span></li>
+        <li><span class="num">C</span><span>All sixteen rules marked pass, weak or fail, with the evidence from your page.</span></li>
+        <li><span class="num">D</span><span>What already works, so you do not lose it in the next redesign.</span></li>
+        <li><span class="num">E</span><span>What it could not check, and how to check it yourself.</span></li>
+      </ul>
     </div>
+    <p class="after">It never invents a fact about you. When a better headline needs a number it does not have, it leaves a slot, like <code>[N] years</code> or <code>[team size]</code>, and tells you what goes there.</p>
   </section>
 
-  <section class="detail" id="rules">
-    <div class="wrap">
-      <span class="mono kicker">What the audit checks</span>
-      <h2>The 16 rules</h2>
-      <p class="lede">Grouped by the moment a reviewer meets them. None of them is about taste: a plain portfolio can pass all sixteen and a beautiful one can fail half.</p>
-      <div class="rules">
-        <section><h3>First screen · 0–5 s</h3><ol>
-          <li><i>01</i><div>Say what you do, in one sentence<span>A line that could not sit on anyone else's site.</span></div></li>
-          <li><i>02</i><div>Show work on the first screen<span>The claim needs evidence before the first scroll.</span></div></li>
-          <li><i>03</i><div>Signal level and proof<span>Years, names, numbers. Specific and checkable.</span></div></li>
-        </ol></section>
-        <section><h3>Scan · 5–15 s</h3><ol>
-          <li><i>04</i><div>Strongest, most relevant work first<span>Most visitors see one project. Choose which.</span></div></li>
-          <li><i>05</i><div>Few projects, each one edited<span>You are judged by the weakest piece you show.</span></div></li>
-          <li><i>06</i><div>Readable at a glance<span>Title and one line, always visible. No hover.</span></div></li>
-        </ol></section>
-        <section><h3>One project · 15–30 s</h3><ol>
-          <li><i>07</i><div>Say what your part was<span>Role, team, and client or personal concept.</span></div></li>
-          <li><i>08</i><div>Show one decision<span>What you chose and why, not the process you followed.</span></div></li>
-          <li><i>09</i><div>Show the change<span>Before and after, a result, or what shipped.</span></div></li>
-        </ol></section>
-        <section><h3>Exit</h3><ol>
-          <li><i>10</i><div>One clear ask, one way to reach you<span>A visible email and a reason to write.</span></div></li>
-          <li><i>11</i><div>Aimed at something<span>After 30 seconds, hired for what?</span></div></li>
-        </ol></section>
-        <section><h3>Everything around it</h3><ol>
-          <li><i>12</i><div>Works on a phone<span>Links are opened from chats and feeds.</span></div></li>
-          <li><i>13</i><div>Loads fast<span>A slow first screen spends the 30 seconds on nothing.</span></div></li>
-          <li><i>14</i><div>Shares well<span>The preview card is seen before the page.</span></div></li>
-        </ol></section>
-        <section><h3>&nbsp;</h3><ol>
-          <li><i>15</i><div>Readable by machines<span>Recruiters search, and ask AI assistants for names.</span></div></li>
-          <li><i>16</i><div>No friction<span>No passwords, loaders, dead links or cursor tricks.</span></div></li>
-        </ol></section>
-      </div>
-    </div>
+  <section class="sec" id="rules">
+    <header class="wh"><span class="num">03</span><h2>What it checks</h2><p class="desc">Sixteen rules, in the order a reviewer meets them. None is about taste: a plain portfolio can pass all of them and a beautiful one can fail half.</p><p class="tags">16 rules</p></header>
+    <ol class="rules">
+      <li class="when label">The 30 seconds</li>
+      <li><span class="num">01</span><div>Say what you do, in one sentence<span>A line that could not sit on anyone else's site.</span></div></li>
+      <li><span class="num">02</span><div>Show work on the first screen<span>The claim needs evidence before the first scroll.</span></div></li>
+      <li><span class="num">03</span><div>Signal level and proof<span>Years, names, numbers. Specific and checkable.</span></div></li>
+      <li><span class="num">04</span><div>Strongest, most relevant work first<span>Most visitors see one project. Choose which.</span></div></li>
+      <li><span class="num">05</span><div>Few projects, each one edited<span>You are judged by the weakest piece you show.</span></div></li>
+      <li><span class="num">06</span><div>Readable at a glance<span>Title and one line, always visible. No hover.</span></div></li>
+      <li><span class="num">07</span><div>Say what your part was<span>Role, team, and client or personal concept.</span></div></li>
+      <li><span class="num">08</span><div>Show one decision<span>What you chose and why, not the process you followed.</span></div></li>
+      <li><span class="num">09</span><div>Show the change<span>Before and after, a result, or what shipped.</span></div></li>
+      <li class="when label">The exit</li>
+      <li><span class="num">10</span><div>One clear ask, one way to reach you<span>A visible email and a reason to write.</span></div></li>
+      <li><span class="num">11</span><div>Aimed at something<span>After 30 seconds, hired for what?</span></div></li>
+      <li class="when label">Everything around it</li>
+      <li><span class="num">12</span><div>Works on a phone<span>Links are opened from chats and feeds.</span></div></li>
+      <li><span class="num">13</span><div>Loads fast<span>A slow first screen spends the 30 seconds on nothing.</span></div></li>
+      <li><span class="num">14</span><div>Shares well<span>The preview card is seen before the page.</span></div></li>
+      <li><span class="num">15</span><div>Readable by machines<span>Recruiters search, and ask AI assistants for names.</span></div></li>
+      <li><span class="num">16</span><div>No friction<span>No passwords, loaders, dead links or cursor tricks.</span></div></li>
+    </ol>
   </section>
 
-  <section class="detail" id="build">
-    <div class="wrap">
-      <span class="mono kicker">/portfolio-build</span>
-      <h2>Portfolio Build</h2>
-      <p class="lede">Hand it a folder of images and whatever you have written about yourself. It asks only for what it cannot find, writes one content file, and builds a static site with nothing to install. Change the file, build again.</p>
-      <div class="two">
-        <div class="box">
-          <h3>What it does</h3>
-          <ul>
-            <li><i>1</i><span>Works out what the portfolio is for: the role or client you want.</span></li>
-            <li><i>2</i><span>Picks the grid that suits your kind of work, and says why.</span></li>
-            <li><i>3</i><span>Writes the headline, proof and one line per project from your facts.</span></li>
-            <li><i>4</i><span>Sets the look from your brand: typeface, colour, corners, spacing.</span></li>
-            <li><i>5</i><span>Builds, then lists what the audit would still flag.</span></li>
-          </ul>
-        </div>
-        <div>
-          <pre class="say"><s>$</s> <b>python3 build.py portfolio.json</b>
+  <section class="sec" id="build">
+    <header class="wh"><span class="num">04</span><h2>Portfolio Build</h2><p class="desc">Hand it a folder of images and whatever you have written about yourself. It writes one content file and builds a static site, with nothing to install. Change the file, build again.</p><p class="tags">/portfolio-build</p></header>
+    <div class="two">
+      <ul class="box">
+        <li><span class="num">A</span><span>Works out what the portfolio is for: the role or the client you want.</span></li>
+        <li><span class="num">B</span><span>Picks the grid that suits your kind of work, and says why.</span></li>
+        <li><span class="num">C</span><span>Writes the headline, the proof and one line per project from your facts.</span></li>
+        <li><span class="num">D</span><span>Sets the look from your brand: typeface, colour, corners, spacing.</span></li>
+        <li><span class="num">E</span><span>Builds, then lists what the audit would still flag.</span></li>
+      </ul>
+<pre class="say"><s>$</s> <b>python3 build.py portfolio.json</b>
 
-Built "case" layout: 3 projects, 18 pictures
+Built "case" layout: 3 projects, 7 pictures
 
 <em>2 things the 30-second audit would flag:</em>
   rule  9  "Admin dashboard" does not say
            what changed or what shipped
-  rule 14  no "share_image" for link previews</pre>
-        </div>
-      </div>
-      <p class="lede" style="margin-top:28px">The grid decides where things go. The look is one small block you own, so two portfolios built this way read the same and look nothing alike.</p>
+  rule 14  no "share_image" for link previews
+
+<em>1 slot still to fill:</em>
+  Checkout redesign · year   [year]</pre>
+    </div>
+    <p class="after">The grid decides where things go. The look is one small block that you own, so two portfolios built this way read the same and look nothing alike.</p>
+  </section>
+
+  <section class="sec" id="grids">
+    <header class="wh"><span class="num">05</span><h2>The grids</h2><p class="desc">Three page structures that pass the test. Each answers the same question for a different kind of work: what does the reviewer need to see? This page is built on the first one.</p><p class="tags">3 grids</p></header>
+    <div class="grids">
+      <div class="g"><figure><svg viewBox="0 0 96 64" fill="none" stroke="currentColor" stroke-width="1.500"><g class="you"><rect x="2" y="2" width="26" height="36" rx="4"/><rect x="2" y="42" width="26" height="20" rx="4"/></g><rect x="33" y="2" width="29" height="26" rx="4"/><rect x="65" y="2" width="29" height="26" rx="4"/><rect x="33" y="31" width="61" height="31" rx="4"/></svg></figure><h3>Index<span>index</span></h3><p>You stay fixed on the left while the work runs large on the right.</p><p class="for">Art direction, brand, 3D, illustration.</p></div>
+      <div class="g"><figure><svg viewBox="0 0 96 64" fill="none" stroke="currentColor" stroke-width="1.500"><g class="you" stroke-linecap="round"><path d="M2 5h24M62 5h32"/></g><rect x="2" y="12" width="44.500" height="23" rx="4"/><rect x="49.500" y="12" width="44.500" height="23" rx="4"/><rect x="2" y="38" width="44.500" height="23" rx="4"/><rect x="49.500" y="38" width="44.500" height="23" rx="4"/></svg></figure><h3>Columns<span>columns</span></h3><p>A short header, then every piece at one size, two across.</p><p class="for">Film, motion, photography.</p></div>
+      <div class="g"><figure><svg viewBox="0 0 96 64" fill="none" stroke="currentColor" stroke-width="1.500"><g class="you" stroke-linecap="round"><path d="M14 6h46M14 13h30"/></g><rect x="14" y="21" width="68" height="26" rx="4"/><path d="M14 54h20M48 54h34M48 60h22" stroke-linecap="round"/></svg></figure><h3>Case<span>case</span></h3><p>A statement, a card per project with its result, and a page each for role, decision and outcome.</p><p class="for">Product, UX, design leadership.</p></div>
     </div>
   </section>
 
-  <section class="detail" id="grids">
-    <div class="wrap">
-      <span class="mono kicker">Three structures that pass the test</span>
-      <h2>Pick a grid</h2>
-      <p class="lede">Each one answers the same question for a different kind of work: in 30 seconds, what does the reviewer need to see?</p>
-      <div class="grids">
-        <div class="cardk" id="grid-index"><span class="well"><svg viewBox="0 0 48 34" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="13" height="18" rx="2.500"/><rect x="2" y="23" width="13" height="9" rx="2.500"/><rect x="19" y="2" width="12.500" height="13" rx="2.500"/><rect x="34" y="2" width="12" height="13" rx="2.500"/><rect x="19" y="18" width="27" height="14" rx="2.500"/></svg></span><h4>Index</h4><p>Your name, headline and email stay fixed on the left while the work scrolls large on the right.</p><p>Art direction, brand, 3D, illustration.</p></div>
-        <div class="cardk" id="grid-columns"><span class="well"><svg viewBox="0 0 48 34" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4h18M34 4h12" stroke-linecap="round"/><rect x="2" y="9" width="20.500" height="10" rx="2.500"/><rect x="25.500" y="9" width="20.500" height="10" rx="2.500"/><rect x="2" y="22" width="20.500" height="10" rx="2.500"/><rect x="25.500" y="22" width="20.500" height="10" rx="2.500"/></svg></span><h4>Columns</h4><p>A short header, then every piece at one size, two across. It reads as a body of work.</p><p>Film, motion, photography.</p></div>
-        <div class="cardk" id="grid-case"><span class="well"><svg viewBox="0 0 48 34" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 4h22M8 8.500h14" stroke-linecap="round"/><rect x="8" y="13" width="32" height="12" rx="2.500"/><path d="M8 29.500h10M24 29.500h16" stroke-linecap="round"/></svg></span><h4>Case</h4><p>A large statement, one card per project with its result, and a page each for role, decision and outcome.</p><p>Product, UX, design leadership.</p></div>
-      </div>
-    </div>
+  <section class="sec" id="say">
+    <header class="wh"><span class="num">06</span><h2>What to say</h2><p class="desc">There is nothing to learn. Say it the way you would say it to a colleague and the right skill picks it up.</p><p class="tags">8 ways in</p></header>
+    <ol class="ask-list">
+      <li><span class="num">01</span><span>Audit my portfolio, I'm applying for senior product roles</span><span class="ct">/portfolio-audit</span></li>
+      <li><span class="num">02</span><span>Why am I not getting interviews with this site?</span><span class="ct">/portfolio-audit</span></li>
+      <li><span class="num">03</span><span>Is this good enough for head of design roles?</span><span class="ct">/portfolio-audit</span></li>
+      <li><span class="num">04</span><span>Rewrite my headline so it says what I do</span><span class="ct">/portfolio-audit</span></li>
+      <li><span class="num">05</span><span>I need a portfolio. Here is a folder with my illustrations</span><span class="ct">/portfolio-build</span></li>
+      <li><span class="num">06</span><span>Turn my Behance into my own site</span><span class="ct">/portfolio-build</span></li>
+      <li><span class="num">07</span><span>Which layout suits a motion reel?</span><span class="ct">/portfolio-build</span></li>
+      <li><span class="num">08</span><span>Apply the fixes from the audit</span><span class="ct">/portfolio-build</span></li>
+    </ol>
   </section>
 
-  <div class="wrap">
-    <footer class="foot">
-      <span>Made by <a href="https://theartofvisual.com">Owi</a>, Head of Design at Tuyo.</span>
-      <span>Several rules build on <a href="https://x.com/_kejk">Karl's</a> writing on portfolios.</span>
-    </footer>
-  </div>
+  <footer class="end">
+    <p class="ask">Try it on your own portfolio first.</p>
+    <a class="big" href="https://github.com/adrituyo/portfolio-skills">Get the skills ↗</a>
+    <p class="fine"><span>Made by <a href="https://theartofvisual.com">Owi</a>, Head of Design at Tuyo · MIT</span><span>Several rules build on <a href="https://x.com/_kejk">Karl's</a> writing on portfolios</span></p>
+  </footer>
 </main>
 
 <script>
@@ -361,47 +334,44 @@ Built "case" layout: 3 projects, 18 pictures
   const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
   const root = document.documentElement;
 
-  // What you can type, and the skill that answers. Listed twice so the loop has no seam.
-  const lines = [
-    ['audit my portfolio, I\'m applying for senior product roles', 'portfolio-audit'],
-    ['I need a portfolio. here\'s a folder with my illustrations', 'portfolio-build'],
-    ['why am I not getting interviews with this site?', 'portfolio-audit'],
-    ['which layout suits a motion reel?', 'portfolio-build'],
-    ['roast my portfolio', 'portfolio-audit'],
-    ['turn my Behance into my own site', 'portfolio-build'],
-    ['what would a recruiter think of this in 30 seconds?', 'portfolio-audit'],
-    ['apply the fixes from the audit', 'portfolio-build'],
-    ['is this good enough for head of design roles?', 'portfolio-audit'],
-    ['rewrite my headline so it says what I do', 'portfolio-audit'],
-    ['rebuild my site around case studies', 'portfolio-build'],
-    ['check my portfolio on a phone', 'portfolio-audit'],
-  ];
-  $('#stream').innerHTML = [...lines, ...lines].map(([q, s]) => `<li>&gt; ${q.replace(/</g, '&lt;')} <span>→</span> <b>/${s}</b></li>`).join('');
+  // Theme: dark by default, the switch remembers the choice in this browser
+  const btns = $$('[data-theme-set]'), meta = $('meta[name="theme-color"]');
+  const setTheme = (t, save) => {
+    if (t === 'light') root.dataset.theme = 'light'; else delete root.dataset.theme;
+    btns.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.themeSet === t)));
+    meta.content = t === 'light' ? '#f2f1ed' : '#0b0b0b';
+    if (save) { try { localStorage.setItem('theme', t); } catch (e) {} }
+  };
+  setTheme(root.dataset.theme === 'light' ? 'light' : 'dark');
+  btns.forEach(b => b.addEventListener('click', () => setTheme(b.dataset.themeSet, true)));
 
   // Copy the install line
   $$('[data-copy]').forEach(b => b.addEventListener('click', async () => {
-    try { await navigator.clipboard.writeText(b.dataset.copy); b.textContent = '[copied]'; } catch (e) { b.textContent = '[select + copy]'; }
-    setTimeout(() => { b.textContent = '[copy]'; }, 1600);
+    try { await navigator.clipboard.writeText(b.dataset.copy); b.textContent = 'Copied'; } catch (e) { b.textContent = 'Select it'; }
+    setTimeout(() => { b.textContent = 'Copy'; }, 1600);
   }));
 
-  // Light and dark, remembered in this browser
-  $('#theme').addEventListener('click', () => {
-    const light = root.dataset.theme !== 'light';
-    if (light) root.dataset.theme = 'light'; else delete root.dataset.theme;
-    try { localStorage.setItem('theme', light ? 'light' : 'dark'); } catch (e) {}
-  });
+  // The 30 seconds, in real time, from the moment the page opens: the number counts down, the bar fills, and it stops.
+  const segs = $$('.seg[data-from]'), count = $('#count'), hand = $('#hand');
+  const draw = t => {
+    count.textContent = Math.max(0, Math.ceil(30 - t));
+    hand.textContent = '0:' + String(Math.min(30, Math.floor(t))).padStart(2, '0');
+    segs.forEach(s => {
+      const a = +s.dataset.from, b = +s.dataset.to, p = Math.min(1, Math.max(0, (t - a) / (b - a)));
+      s.style.setProperty('--p', p.toFixed(4)); s.classList.toggle('now', t >= a && t < b);
+    });
+    $('.seg.exit').classList.toggle('now', t >= 30);
+  };
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) draw(0);
+  else { const t0 = Date.now(); draw(0); const id = setInterval(() => { const t = (Date.now() - t0) / 1000; draw(Math.min(t, 30)); if (t >= 30) clearInterval(id); }, 100); }
 
-  // Sidebar: opens on small screens, and marks the section in view
-  const menu = $('.menu');
-  const toggle = open => { document.body.classList.toggle('open', open); menu.setAttribute('aria-expanded', String(open)); };
-  menu.addEventListener('click', () => toggle(!document.body.classList.contains('open')));
-  const links = $$('.side a');
-  links.forEach(a => a.addEventListener('click', () => toggle(false)));
-  const targets = links.map(a => $(a.getAttribute('href'))).filter(Boolean);
+  // The index marks the section in view
+  const links = new Map($$('.index a').map(a => [a.getAttribute('href').slice(1), a]));
+  const secs = $$('main > section[id]');
   const mark = () => {
-    const y = scrollY + 140; let cur = targets[0];
-    targets.forEach(t => { if (t.getBoundingClientRect().top + scrollY <= y) cur = t; });
-    links.forEach(a => a.classList.toggle('on', a.getAttribute('href') === '#' + cur.id));
+    const y = scrollY + innerHeight * .35; let cur = secs[0];
+    secs.forEach(s => { if (s.offsetTop <= y) cur = s; });
+    links.forEach((a, id) => a.classList.toggle('on', id === cur.id));
   };
   addEventListener('scroll', mark, { passive: true }); mark();
 })();
