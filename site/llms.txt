@@ -1,0 +1,30 @@
+# Portfolio Skills (30s.design)
+
+> Two open-source skills for AI agents, by Owi, Head of Design at Tuyo. Portfolio Audit reads a design portfolio the way the person hiring does, in a first look of about 30 seconds, and returns what they would understand and the three fixes that matter most. Portfolio Build makes a portfolio that passes that look, from a folder of work, in one of three grids. They rest on one idea, the 30-second theory: nobody spends more than 30 seconds on a portfolio the first time (5 on the first screen, 10 scanning, 15 on one project).
+
+Key facts:
+
+- Install: `npx skills@latest add adrituyo/portfolio-skills`
+- Skills: portfolio-audit, portfolio-build
+- Rules checked: 17, grouped by the moment a reviewer meets them
+- Grids: index, columns, case
+- Licence: MIT, free to use
+- Author: Owi (Adri Garcia), https://theartofvisual.com
+- For: designers, art directors, design leads, illustrators, motion and 3D artists, photographers, design engineers
+
+## Read
+
+- [The whole page as Markdown](https://30s.design/index.md): the theory, both skills, the 17 rules in one line each, the three grids
+- [The page](https://30s.design/): the same, as a web page
+
+## Source
+
+- [Repository](https://github.com/adrituyo/portfolio-skills): the skills themselves
+- [The 17 rules in full](https://github.com/adrituyo/portfolio-skills/blob/main/skills/portfolio-audit/references/rules.md): each with why it matters, how to check it, and how to fix it
+- [Portfolio Audit instructions](https://github.com/adrituyo/portfolio-skills/blob/main/skills/portfolio-audit/SKILL.md)
+- [Portfolio Build instructions](https://github.com/adrituyo/portfolio-skills/blob/main/skills/portfolio-build/SKILL.md)
+- [The three grids](https://github.com/adrituyo/portfolio-skills/blob/main/skills/portfolio-build/references/grids.md)
+
+## Optional
+
+- [Owi's profile](https://theartofvisual.com/llms.txt): who made this

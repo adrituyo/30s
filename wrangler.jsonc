@@ -4,7 +4,8 @@
   "compatibility_date": "2026-01-01",
   "workers_dev": true,
   "assets": {
-    "directory": "./site"
+    "directory": "./site",
+    "not_found_handling": "404-page"
   },
   // Own domains: Cloudflare creates the DNS records and the certificate
   "routes": [

@@ -1,3 +1,9 @@
+/
+  Link: <https://30s.design/index.md>; rel="alternate"; type="text/markdown", <https://30s.design/llms.txt>; rel="describedby"; type="text/plain"
+/*.md
+  Content-Type: text/markdown; charset=utf-8
+/*.txt
+  Content-Type: text/plain; charset=utf-8
 /grids/*
   Cache-Control: public, max-age=604800, stale-while-revalidate=2592000
 /*
